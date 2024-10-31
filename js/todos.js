@@ -1,147 +1,79 @@
-console.log("starting To-Do app....");
+console.log("Starting To-Do app...");
 
 const title = document.getElementById('input-title');
 const text = document.getElementById('input-text');
 const addBtn = document.getElementById('add-btn');
-const displaynotes = document.getElementById('showNotes');
-
+const displayNotes = document.getElementById('showNotes');
 
 settingLocalStorage();
 
-// localStorage.setItem('notes', "");
-// console.log(title);
-// console.log(text);
-// console.log(addBtn);
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-
+// LocalStorage ayarlarını yapılandır
 function settingLocalStorage() {
-
-    if(localStorage.getItem('notes') == null){
-        console.log("setting up local storage......")
-        localStorage.setItem('notes', "");
+    if (localStorage.getItem('notes') === null) {
+        console.log("Setting up local storage...");
+        localStorage.setItem('notes', JSON.stringify([]));
     }
-
-
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-function addNoteonClick() {
-
-    console.log("click working");
-    console.log(title.value + "--" + text.value);
-
-    if (title.value == "") {
-        alert("Please add title");
+// Not ekleme işlevi
+function addNoteOnClick() {
+    console.log("Click event triggered");
+    
+    if (title.value === "") {
+        alert("Please add a title");
         return;
     }
 
-    if (text.value == "") {
-        alert("Can not add empty note");
+    if (text.value === "") {
+        alert("Cannot add an empty note");
         return;
     }
 
     const noteObj = {
         Title: title.value,
         Text: text.value
-    }
+    };
 
-    let prevSavedNotes = localStorage.getItem('notes');
+    let prevSavedNotes = JSON.parse(localStorage.getItem('notes'));
+    prevSavedNotes.push(noteObj);
+    localStorage.setItem('notes', JSON.stringify(prevSavedNotes));
 
-    let prevSavedNotesArray = []
-
-    if(prevSavedNotes.length!=0)
-    {
-        prevSavedNotesArray = JSON.parse(prevSavedNotes);
-    }
-
-    prevSavedNotesArray.push(noteObj);
-
-    let updatedSavedNotes = JSON.stringify(prevSavedNotesArray);
-
-    localStorage.setItem('notes', updatedSavedNotes);
-
+    title.value = "";  // Clear the input fields
+    text.value = "";   // Clear the input fields
     showAllNotes();
-
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-
+// Notları gösterme işlevi
 function showAllNotes() {
+    const prevSavedNotes = JSON.parse(localStorage.getItem('notes'));
+    displayNotes.innerHTML = ""; // Clear previous notes display
 
-    let prevSavedNotes_LS = localStorage.getItem('notes');
-
-    // console.log("local storage Length : - ", prevSavedNotes_LS.length);
-
-    if(prevSavedNotes_LS.length==0)
-    {
-        displaynotes.style.display = "none";
+    if (prevSavedNotes.length === 0) {
+        displayNotes.style.display = "none";
         return;
     }
 
-    // console.log("local storage : - ", prevSavedNotes_LS);
-
-    let prevSavedNotes_LS_Array = [];
-
-    prevSavedNotes_LS_Array = JSON.parse(prevSavedNotes_LS);
-
-    // console.log("local storage : - ", prevSavedNotes_LS);
-
     let str = "";
-    
-    for (let i = 0; i < prevSavedNotes_LS_Array.length; i++) {
-        // console.log(prevSavedNotes_LS_Array[i].Title);
-        // console.log(prevSavedNotes_LS_Array[i].Text);
-
-        str += `<div id="note1">
-                    <div id="show-title">${prevSavedNotes_LS_Array[i].Title}</div>
-                    <div id="show-text">${prevSavedNotes_LS_Array[i].Text}</div>
-                    <button class="delete-btn" id="delete-btn-${i}" onclick="deleteNoteonClick(${i})"> Delete </button>
-                </div>
-        `;
+    for (let i = 0; i < prevSavedNotes.length; i++) {
+        str += `<div class="note">
+                    <h4 id="show-title">${prevSavedNotes[i].Title}</h4>
+                    <p id="show-text">${prevSavedNotes[i].Text}</p>
+                    <button class="delete-btn" onclick="deleteNote(${i})">Delete</button>
+                </div>`;
     }
-
-    if (prevSavedNotes_LS_Array.length > 0) {
-        displaynotes.style.display = "flex";
-    }
-
-    displaynotes.innerHTML = str;
+    displayNotes.innerHTML = str; // Add new notes to display
 }
 
-
-///////////////////////////////////////////////////////////////////////////////////////
-
-function deleteNoteonClick(index){
-
-    console.log("delete click working --> index : ", index );
-
-    prevSavedNotesLS = localStorage.getItem('notes');
-
-    prevSavedNotesArray = JSON.parse(prevSavedNotesLS);
-
-    updatedArray = []
-
-    n = prevSavedNotesArray.length;
-
-    for(let i=0;i<n;i++)
-    {
-        if(i!=index)
-        {
-            updatedArray.push(prevSavedNotesArray[i]);
-        }
-    }
-
-    updatedNotesString = JSON.stringify(updatedArray);
-
-    localStorage.setItem('notes', updatedNotesString);
-
+// Not silme işlevi
+function deleteNote(index) {
+    let prevSavedNotes = JSON.parse(localStorage.getItem('notes'));
+    prevSavedNotes.splice(index, 1); // Remove the note at index
+    localStorage.setItem('notes', JSON.stringify(prevSavedNotes));
     showAllNotes();
-
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////
+// Butona tıklama olayı ekleme
+addBtn.addEventListener('click', addNoteOnClick);
 
-addBtn.addEventListener('click', addNoteonClick);
-
-showAllNotes();
+// Sayfa yüklendiğinde notları göster
+window.onload = showAllNotes;
