@@ -127,3 +127,29 @@ function openPanel(direction) {
         panelBottom.style.opacity = '1';
     }
 }
+
+
+//WATER
+let duration = 25 * 60; // Pomodoro süresi saniye olarak (25 dakika)
+let elapsed = 0;
+
+function startProgress() {
+    const interval = setInterval(() => {
+        elapsed += 1;
+        let percentage = (elapsed / duration) * 100;
+
+        // CSS değiştirerek ilerleme animasyonunu güncelle
+        document.getElementById('progress-circle').style.background = `conic-gradient(
+            #00f3ff ${percentage}%,
+            transparent ${percentage}% 100%
+        )`;
+
+        // Timer tamamlandıysa durdur
+        if (elapsed >= duration) {
+            clearInterval(interval);
+            alert("Süre doldu!");
+        }
+    }, 1000); // Her saniye güncelle
+}
+
+startProgress();

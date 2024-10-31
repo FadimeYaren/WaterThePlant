@@ -40,7 +40,6 @@
         </div>
     </nav>
 
-
     <div id="app">
         <!-- Üst, Sağ, Sol ve Alt Tetikleyiciler -->
         <div class="trigger" id="trigger-top"></div>
@@ -55,9 +54,16 @@
                 <button>Pomodoro</button>
                 <button>Stopwatch</button>
             </div>
-            <div id="plant-circle">
-                <img id="plant-stage" src="img/pomodoro/beginning.png" alt="Plant Stage">
+            
+            <!-- Dairesel Zamanlayıcı -->
+            <div id="circular-timer">
+                <div id="progress-circle"></div>
+                <div id="content">
+                    <img id="plant-stage" src="img/pomodoro/beginning.png" alt="Plant Stage">
+                </div>
             </div>
+
+            <!-- Zaman Göstergesi -->
             <div id="timer-display">00:00</div>
             <button id="start-button" onclick="startTimer()">Başlat</button>
             <button id="stop-button" onclick="stopTimer()" style="display: none;">Bitir</button>
@@ -69,11 +75,6 @@
         <div class="side-panel" id="panel-left">Sol Panel</div>
         <div class="side-panel" id="panel-bottom">Alt Panel</div>
     </div>
-    
-
-
-
-
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>

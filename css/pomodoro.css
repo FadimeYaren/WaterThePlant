@@ -219,3 +219,55 @@ body.dark-mode .night {
         opacity: 0;
     }
 }
+
+
+
+/*WATER*/
+/* Dairesel Zamanlayıcı */
+#circular-timer {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden; /* Resmin dışarı taşmasını önler */
+    background-color: #333;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    margin: auto;
+}
+
+/* Çevresinde Dolan Çizgi */
+#progress-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    clip-path: circle(50%);
+    background: conic-gradient(
+        #00f3ff 0%,
+        #00f3ff 0%,
+        transparent 0%,
+        transparent 100%
+    );
+}
+
+/* Merkezdeki İçerik (Bitki Görseli) */
+#content {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden; /* Resmin dışarı taşmasını önler */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #222; /* Arka plan daire */
+}
+
+#plant-stage {
+    width: 100%; /* Görselin daireye tam oturmasını sağlar */
+    height: auto;
+    object-fit: cover;
+}
