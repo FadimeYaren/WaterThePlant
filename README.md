@@ -3,3 +3,8 @@
 # We are Yaren, Zeynep, Duru and Rüya. Purpose of this project is creating a website for taking notes and to do list and control our study time. 
 
 
+# TAMAMLANAN SAYFALAR
+
+# TO DO SAYFASI TAMAMLANDI REVIEW GEREKIYOR
+
+
