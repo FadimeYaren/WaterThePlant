@@ -37,14 +37,31 @@
     </nav>
 
     <!-- Main Content Area -->
-    <div class="container mt-4">
+    <div class="container mt-5">
         <h1>To-Do List</h1>
         <p>This is the To-Do List page. You can add your list functionalities here.</p>
+
+        <div class="main-div">
+            <h1 id="heading">WATER THE PLANT AND TAKE YOUR NOTES</h1>
+
+            <div class="addNote">
+                <input type="text" id="input-title" placeholder="Title" class="form-control mb-2">
+                <textarea id="input-text" cols="30" rows="10" placeholder="Take a Note.." class="form-control mb-2"></textarea>
+                <button id="add-btn" type="button" class="btn btn-primary">ADD</button>
+            </div>
+
+            <div id="showNotes">
+                <!-- Notes will be displayed here -->
+            </div>
+        </div>
     </div>
+
+
 
     <!-- JavaScript Files -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="./logic.js"></script>
 </body>
 </html>

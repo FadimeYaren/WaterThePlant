@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@700&display=swap');
+
+/******************************************************************/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+/******************************************************************/
+
+.main-div {
+    min-height: 100vh;
+    max-width: 100vw;
+    background-image: linear-gradient(to right, #b3cde0, #f1e3dd); /* Yumuşak gradient */
+    overflow: auto;
+}
+/******************************************************************/
+
+#heading {
+    padding-top: 5vh;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif; /* Modern font */
+    color: #317773; /* Canlı bir yeşil */
+    letter-spacing: 2px; /* Harf aralığını artırdım */
+    font-size: 2.5em; /* Daha büyük bir font boyutu */
+    text-transform: uppercase; /* Harfleri büyük yapmak için */
+    font-weight: 600; /* Kalınlık */
+    line-height: 1.2; /* Satır yüksekliği */
+}
+
+
+.addNote {
+    min-height: 40vh;
+    max-width: 70vw;
+    background-color: #e8f5e9; /* Pastel yeşil */
+    margin: 5vh 15vw;
+    border-radius: 20px;
+    border: 1px solid #81c784;
+    padding: 30px 50px;
+}
+
+#input-title {
+    height: 5vh;
+    width: 100%;
+    font-size: 20px;
+    padding-left: 1vw;
+    outline: none;
+    background-color: transparent;
+    border: 2px solid #b0bec5;
+    border-radius: 10px;
+}
+
+#input-text {
+    max-height: 50vh;
+    min-height: 50vh;
+    max-width: 100%;
+    min-width: 100%;
+    font-size: large;
+    font-family: sans-serif;
+    padding: 1vh 1.1vw;
+    outline: none;
+    background-color: transparent;
+    border: 2px solid #b0bec5;
+    border-radius: 10px;
+    margin-top: 5px;
+    word-break: break-all;
+    white-space: pre-wrap;
+    overflow-y: scroll;
+}
+
+#add-btn {
+    height: 50px; /* Yüksekliği ayarlayın */
+    width: 120px; /* Genişliği ayarlayın */
+    border: none; /* Kenarları kaldırdım */
+    border-radius: 10px; /* Köşeleri yuvarlaştırdım */
+    outline: none; /* Dış hatları kaldırdım */
+    background-color: #81c784; /* Arka plan rengi */
+    color: white; /* Yazı rengi beyaz */
+    font-family: 'Poppins', sans-serif; /* Modern font */
+    font-size: 18px; /* Font boyutu */
+    font-weight: 600; /* Daha kalın bir yazı tipi */
+    transition: background-color 0.3s, transform 0.3s; /* Geçiş efektleri */
+    cursor: pointer; /* Fare imlecini göster */
+}
+
+#add-btn:hover {
+    background-color: #66bb6a; /* Hover sırasında arka plan rengi */
+    transform: scale(1.05); /* Hover sırasında butonu büyütme efekti */
+}
+/******************************************************************/
+
+#showNotes {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    height: 100%;
+    width: 88vw;
+    /* background-color: rgb(170, 168, 168); */
+    background-color: transparent;
+    /* background-color: rgb(231, 92, 92); */
+    margin: 5vh 5vw;
+    border-radius: 20px;
+    /* border: 2px solid black; */
+    /* padding: 20px 20px; */
+
+}
+
+#note1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: baseline;
+    height: 40vh;
+    width: 25%;
+    background-color: #edf3ed; /* Hafif beyaz */
+    margin: 5vh 2vw;
+    border-radius: 20px;
+    border: 2px solid #e0e0e0;
+    padding: 10px;
+    text-overflow: clip;
+    flex-direction: column;
+}
+
+
+#show-title {
+    height: 15%;
+    width: 100%;
+    font-size: 20px;
+    font-family: sans-serif;
+    padding-left: 1vw;
+    border: 2px solid #cfd8dc;
+    outline: none;
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 10px;
+    text-transform: uppercase;
+    font-size: medium;
+}
+
+#show-text {
+    height: 70%;
+    width: 100%;
+    font-size: medium;
+    font-family: sans-serif;
+    padding: 1vh 1.1vw;
+    border: 1px solid #cfd8dc;
+    outline: none;
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin-top: 5px;
+    word-break: break-all;
+    white-space: pre-wrap;
+    overflow-y: scroll;
+}
+
+/* Buton Stilleri */
+.delete-btn {
+    height: 50px; /* Yüksekliği ayarlayın */
+    width: 120px; /* Genişliği ayarlayın */
+    border: none; /* Kenarları kaldırdım */
+    border-radius: 10px; /* Köşeleri yuvarlaştırdım */
+    outline: none; /* Dış hatları kaldırdım */
+    background-color: #ff6b6b; /* Arka plan rengi */
+    color: white; /* Yazı rengi beyaz */
+    font-family: 'Poppins', sans-serif; /* Modern font */
+    font-size: 18px; /* Font boyutu */
+    font-weight: 600; /* Daha kalın bir yazı tipi */
+    transition: background-color 0.3s, transform 0.3s; /* Geçiş efektleri */
+    cursor: pointer; /* Fare imlecini göster */
+}
+
+.delete-btn:hover {
+    background-color: #e53935; /* Hover sırasında arka plan rengi */
+    transform: scale(1.05); /* Hover sırasında butonu büyütme efekti */
+}
+
+
+
+
+/* RESPONSİVE */
+
+@media only screen and (max-width: 800px) {
+
+    #note1 {
+        width: 35%;
+        margin-top: 20px;
+    }
+
+}
+
+@media only screen and (max-width: 500px) {
+
+    #note1 {
+        width: 70%;
+    }
+
+
+}
