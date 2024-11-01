@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-/* Temel Ayarlar */
+/* Basic Settings */
 * {
     margin: 0;
     padding: 0;
@@ -9,10 +9,10 @@
 }
 
 body {
-    background-image: linear-gradient(to right, #b3cde0, #f1e3dd); /* Arka plan gradienti */
+    background-color: #f7f7f7; /* Background color */
 }
 
-/* Ana Div */
+/* Main Div */
 .main-div {
     min-height: 100vh;
     max-width: 100vw;
@@ -20,10 +20,10 @@ body {
     padding: 20px;
 }
 
-/* Başlık Stilleri */
+/* Title Styles */
 #heading {
     text-align: center;
-    color: #317773; /* Yeşil ton */
+    color: #317773; /* Green tone */
     letter-spacing: 2px;
     font-size: 2.5em;
     text-transform: uppercase;
@@ -31,30 +31,30 @@ body {
     margin-bottom: 20px;
 }
 
-/* Not Ekleme Alanı */
+/* Note Adding Area */
 .addNote {
-    max-width: 700px; /* Genişlik sınırı */
-    margin: auto; /* Ortalar */
-    background-color: #e8f5e9; /* Pastel yeşil */
+    max-width: 700px; /* Width limit */
+    margin: auto; /* Center it */
+    background-color: #e8f5e9; /* Pastel green */
     border-radius: 20px;
-    border: 1px solid #81c784; /* Kenar rengi */
+    border: 1px solid #81c784; /* Border color */
     padding: 30px;
 }
 
-/* Giriş Alanı */
+/* Input Area */
 #input-title,
 #input-text {
-    width: 100%; /* Tam genişlik */
+    width: 100%; /* Full width */
     padding: 10px;
-    margin-top: 10px; /* Üstte boşluk */
+    margin-top: 10px; /* Top margin */
     border: 2px solid #b0bec5;
     border-radius: 10px;
 }
 
-/* Buton Stili */
+/* Button Style */
 #add-btn {
-    margin-top: 15px; /* Üstte boşluk */
-    width: 100%; /* Tam genişlik */
+    margin-top: 15px; /* Top margin */
+    width: 100%; /* Full width */
     padding: 10px;
     background-color: #81c784;
     color: white;
@@ -66,62 +66,65 @@ body {
 }
 
 #add-btn:hover {
-    background-color: #66bb6a; /* Hover efekti */
+    background-color: #66bb6a; /* Hover effect */
 }
 
-/* Notları Gösterme Alanı */
+/* Display Notes Area */
 #showNotes {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly; /* Esnek düzenleme */
+    flex-direction: column; /* Vertical alignment */
+    align-items: center; /* Centered */
     margin-top: 20px;
 }
 
-/* Her Not Stili */
+/* Each Note Style */
 .note {
-    background-color: #edf3ed; /* Hafif beyaz */
+    background-color: #edf3ed; /* Light white */
     border: 2px solid #e0e0e0;
     border-radius: 20px;
     padding: 15px;
     margin: 10px;
-    width: 300px; /* Not genişliği */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Gölgelendirme */
+    width: 300px; /* Note width */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Shadow */
+    position: relative; /* Relative position */
 }
 
-/* Not Başlığı ve Metni */
-#show-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
+.completed {
+    text-decoration: line-through; /* Strike-through */
+    color: #9e9e9e; /* Gray color */
 }
 
-#show-text {
-    font-size: 16px;
-    height: 80px; /* Yükseklik sınırı */
-    overflow-y: auto; /* Kaydırma çubuğu */
-}
-
-/* Silme Butonu */
-.delete-btn {
-    margin-top: 10px;
-    width: 100%;
-    padding: 10px;
-    background-color: #ff6b6b;
-    color: white;
+/* Button Styles */
+.complete-btn, .delete-btn {
+    padding: 8px;
     border: none;
-    border-radius: 10px;
-    font-weight: 600;
-    transition: background-color 0.3s, transform 0.3s;
+    border-radius: 5px;
+    margin-top: 10px;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.complete-btn {
+    background-color: #4caf50; /* Green */
+    color: white;
+}
+
+.complete-btn:hover {
+    background-color: #45a049; /* Hover effect */
+}
+
+.delete-btn {
+    background-color: #f44336; /* Red */
+    color: white;
 }
 
 .delete-btn:hover {
-    background-color: #e53935; /* Hover efekti */
+    background-color: #d32f2f; /* Hover effect */
 }
 
-/* Responsive Ayarlar */
+/* Responsive Settings */
 @media (max-width: 768px) {
     .note {
-        width: 90%; /* Daha dar ekranlarda genişliği artır */
+        width: 90%; /* Increase width on narrower screens */
     }
 }
