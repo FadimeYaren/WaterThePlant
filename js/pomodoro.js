@@ -93,6 +93,9 @@ stars.forEach(star => {
     star.style.animationDuration = `${randomDuration}s`;
 });
 
+
+
+
 //WATER
 let duration = 25 * 60; // Pomodoro süresi saniye olarak (25 dakika)
 let elapsed = 0;
