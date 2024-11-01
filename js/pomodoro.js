@@ -93,42 +93,6 @@ stars.forEach(star => {
     star.style.animationDuration = `${randomDuration}s`;
 });
 
-// Merkez kutusu ve yan panelleri kontrol eden kod
-const centerBox = document.getElementById('center-box');
-const panelTop = document.getElementById('panel-top');
-const panelRight = document.getElementById('panel-right');
-const panelLeft = document.getElementById('panel-left');
-const panelBottom = document.getElementById('panel-bottom');
-
-// Tetikleyicilere tıklama olayları ekleme
-document.getElementById('trigger-top').addEventListener('click', () => openPanel('top'));
-document.getElementById('trigger-right').addEventListener('click', () => openPanel('right'));
-document.getElementById('trigger-left').addEventListener('click', () => openPanel('left'));
-document.getElementById('trigger-bottom').addEventListener('click', () => openPanel('bottom'));
-
-// Panel açma ve merkez kutusunu hareket ettirme
-function openPanel(direction) {
-    panelTop.style.opacity = '0';
-    panelRight.style.opacity = '0';
-    panelLeft.style.opacity = '0';
-    panelBottom.style.opacity = '0';
-
-    if (direction === 'top') {
-        centerBox.style.transform = 'translateY(100px)';
-        panelTop.style.opacity = '1';
-    } else if (direction === 'right') {
-        centerBox.style.transform = 'translateX(-100px)';
-        panelRight.style.opacity = '1';
-    } else if (direction === 'left') {
-        centerBox.style.transform = 'translateX(100px)';
-        panelLeft.style.opacity = '1';
-    } else if (direction === 'bottom') {
-        centerBox.style.transform = 'translateY(-100px)';
-        panelBottom.style.opacity = '1';
-    }
-}
-
-
 //WATER
 let duration = 25 * 60; // Pomodoro süresi saniye olarak (25 dakika)
 let elapsed = 0;
