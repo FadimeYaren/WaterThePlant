@@ -58,6 +58,7 @@ function showNotes() {
                     ${note.Completed ? '✔️ Completed' : '🟢 Complete'}
                 </button>
                 <button class="delete-btn" onclick="deleteNote(${index})">Delete</button>
+                <button class="download-btn" onclick="downloadNote(${index})">Download</button>
             </div>
         `;
         displaynotes.appendChild(noteDiv);
@@ -76,6 +77,17 @@ function deleteNote(index) {
     savedNotes.splice(index, 1); // Remove note
     localStorage.setItem('notes', JSON.stringify(savedNotes));
     showNotes(); // Show updated notes
+}
+
+function downloadNote(index) {
+    let savedNotes = JSON.parse(localStorage.getItem('notes'));
+    const note = savedNotes[index];
+    const noteContent = `Title: ${note.Title}\n\n${note.Text}`;
+    const blob = new Blob([noteContent], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${note.Title}.txt`;
+    link.click();
 }
 
 // Show notes on page load

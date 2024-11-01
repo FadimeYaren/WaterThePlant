@@ -95,7 +95,7 @@ body {
 }
 
 /* Button Styles */
-.complete-btn, .delete-btn {
+.complete-btn, .delete-btn, .download-btn {
     padding: 8px;
     border: none;
     border-radius: 5px;
@@ -120,6 +120,15 @@ body {
 
 .delete-btn:hover {
     background-color: #d32f2f; /* Hover effect */
+}
+
+.download-btn {
+    background-color: #1e88e5; /* Mavi ton */
+    color: white;
+}
+
+.download-btn:hover {
+    background-color: #1565c0; /* Hover efekti */
 }
 
 /* Responsive Settings */
