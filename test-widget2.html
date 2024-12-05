@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Widgets</title>
+    <!-- Widget CSS Bağlantısı -->
+    <link rel="stylesheet" href="css/widget.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(12, 100px);
+            grid-auto-rows: 100px;
+            gap: 5px;
+            border: 1px solid #ccc;
+            width: 1200px;
+            height: 800px;
+            background-color: #fff;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container" id="grid-container" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+
+    <script type="module">
+        import { PomodoroWidget } from './js/widget-pomodoro.js';
+
+        const gridContainer = document.getElementById('grid-container');
+
+        // Pomodoro Widget ekle
+        const pomodoroWidget = new PomodoroWidget();
+        pomodoroWidget.appendTo(gridContainer);
+
+        // Drag & Drop İşlevselliği
+        window.allowDrop = function (e) {
+            e.preventDefault();
+        };
+
+        window.drop = function (e) {
+            e.preventDefault();
+            const widgetId = e.dataTransfer.getData('text/plain');
+            const widget = document.getElementById(widgetId);
+
+            if (widget) {
+                const gridRect = gridContainer.getBoundingClientRect();
+                const x = e.clientX - gridRect.left;
+                const y = e.clientY - gridRect.top;
+
+                widget.style.left = `${x}px`;
+                widget.style.top = `${y}px`;
+            }
+        };
+    </script>
+</body>
+</html>

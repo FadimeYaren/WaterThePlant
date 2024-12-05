@@ -1,0 +1,86 @@
+/* Widget Temel Stilleri */
+.widget {
+    background-color: #fff; /* Widget arka planı */
+    border: 2px solid #0077ff; /* Mavi kenar */
+    border-radius: 8px;
+    display: flex; /* İçerik hizalaması için */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+
+/* Widget İçindeki Başlık */
+.widget h3 {
+font-size: 1.5em;
+margin-bottom: 10px;
+}
+
+/* Widget İçindeki Kontrol Düğmeleri */
+.widget button {
+background-color: #0077ff;
+color: white;
+border: none;
+border-radius: 5px;
+padding: 5px 10px;
+cursor: pointer;
+margin: 5px;
+}
+
+.widget button:hover {
+background-color: #0056b3;
+}
+
+/* Grid Sistemi */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr); /* 12 sütun */
+    gap: 10px;
+    width: 100%; /* Tam genişlik */
+    max-width: 1200px; /* Maksimum genişlik */
+    margin: auto;
+    background-color: #f4f4f4; /* Grid arka planı */
+    border: 1px solid #ccc;
+    position: relative;
+}
+  
+  .grid-container .grid-cell {
+    background-color: #e0e0e0; /* Hücre arka planı */
+    border: 1px solid #ccc; /* Hücre kenarlığı */
+    position: relative;
+    width: 100%; /* Sütuna tam otur */
+    padding-top: 100%; /* Kare yapmak için en-boy oranını sağlar */
+    }
+  
+  .grid-container .grid-cell > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    }
+  
+  
+  
+
+/* Boyutlara Göre Widget Düzeni */
+.widget[data-size="2x1"] {
+grid-column: span 2;
+grid-row: span 1;
+}
+
+.widget[data-size="3x2"] {
+grid-column: span 3;
+grid-row: span 2;
+}
+  
+/* Sürüklenen widget için görsel efekt */
+.dragging {
+    opacity: 0.6;
+    transform: scale(1.05);
+    border: 2px dashed #ff4500; /* Çizgili çerçeve */
+  }
+  

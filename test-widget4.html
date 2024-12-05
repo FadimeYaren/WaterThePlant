@@ -1,0 +1,90 @@
+//benzersiz kimlikli widgetler
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Widgets</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(12, 100px);
+            grid-auto-rows: 100px;
+            gap: 5px;
+            border: 1px solid #ccc;
+            width: 1200px;
+            height: 800px;
+            background-color: #fff;
+            position: relative;
+        }
+
+        .widget {
+            background: #e0e0e0;
+            border: 1px solid #000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            position: absolute;
+            cursor: move;
+        }
+
+        .dragging {
+            opacity: 0.6;
+            transform: scale(1.05);
+            border: 2px dashed #ff4500;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container" id="grid-container" ondragover="allowDrop(event)" ondrop="drop(event)"></div>
+
+    <script type="module">
+        import SimpleWidget from './js/widget-example2.js';
+
+        const gridContainer = document.getElementById('grid-container');
+
+        // İlk Widget
+        const simpleWidget1 = new SimpleWidget();
+        simpleWidget1.appendTo(gridContainer);
+
+        // İkinci Widget
+        const simpleWidget2 = new SimpleWidget();
+        simpleWidget2.appendTo(gridContainer);
+
+        window.allowDrop = function (e) {
+            e.preventDefault(); // Varsayılan davranışı engelle
+        };
+
+        window.drop = function (e) {
+            e.preventDefault(); // Varsayılan davranışı engelle
+
+            const widgetId = e.dataTransfer.getData('text/plain');
+            const widget = document.getElementById(widgetId);
+
+            if (widget) {
+                const container = document.getElementById('grid-container');
+                const gridRect = container.getBoundingClientRect();
+                const x = e.clientX - gridRect.left;
+                const y = e.clientY - gridRect.top;
+
+                // Widget'ı yeni konuma yerleştir
+                widget.style.left = `${x}px`;
+                widget.style.top = `${y}px`;
+            }
+        };
+    </script>
+</body>
+</html>
