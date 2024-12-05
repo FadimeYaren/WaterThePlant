@@ -44,24 +44,38 @@
     
         <!-- Merkez Kutu -->
         <div id="center-box">
-            <div id="timer-mode-buttons">
-                <button>CountDown</button>
-                <button>Pomodoro</button>
-                <button>Stopwatch</button>
-            </div>
-            
-            <!-- Dairesel Zamanlayıcı -->
-            <div id="circular-timer">
-                <div id="progress-circle"></div>
-                <div id="content">
-                    <img id="plant-stage" src="img/pomodoro/beginning.png" alt="Plant Stage">
+            <!-- Sol Bölüm -->
+            <div id="left-section">
+                <div id="circular-timer">
+                    <div id="progress-circle"></div>
+                    <div id="content">
+                        <img id="plant-stage" src="img/pomodoro/beginning.png" alt="Plant Stage">
+                    </div>
                 </div>
+                
+                <div id="timer-display">00:00</div>
+                <button id="start-button" onclick="startTimer()">Başlat</button>
+                <button id="stop-button" onclick="stopTimer()" style="display: none;">Bitir</button>
+                <!-- Aç/Kapat Butonu -->
+                <button id="toggle-settings" onclick="toggleSettings()">></button>
             </div>
-    
-            <!-- Zaman Göstergesi -->
-            <div id="timer-display">00:00</div>
-            <button id="start-button" onclick="startTimer()">Başlat</button>
-            <button id="stop-button" onclick="stopTimer()" style="display: none;">Bitir</button>
+        
+            <!-- Sağ Bölüm (Başlangıçta Gizli) -->
+            <div id="right-section" class="hidden">
+                <h3>Ayarlar</h3>
+                <label for="pomodoro-count">Pomodoro Sayısı:</label>
+                <input type="number" id="pomodoro-count" min="1" value="1">
+                
+                <label for="pomodoro-duration">Pomodoro Süresi (dk):</label>
+                <input type="number" id="pomodoro-duration" min="10" value="25">
+                
+                <label for="break-duration">Mola Süresi (dk):</label>
+                <input type="number" id="break-duration" min="1" value="5">
+                
+                <button id="apply-settings" onclick="applySettings()">Uygula</button>
+            </div>
+        
+            
         </div>
     
         
