@@ -3,52 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WaterThePlant | To-Do List</title>
+    <title>Productivity Site</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Genel Stil Dosyası -->
+    <!-- General Stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Circular button style */
+        .icon-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #6c757d;
+            background-color: #f8f9fa;
+            color: #6c757d;
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+
+        /* Padding to avoid content overlapping with the navbar */
+        body {
+            padding-top: 70px;
+        }
+
+        /* Dark mode styling */
+        .dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        /* Navbar styling in dark mode */
+        .dark-mode .navbar {
+            background-color: #333333 !important;
+            color: #ffffff !important;
+        }
+
+        .dark-mode .navbar a.nav-link {
+            color: #ffffff !important;
+        }
+
+        .dark-mode .navbar .navbar-brand {
+            color: #ffffff !important;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navbar -->
+    <!-- Fixed Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <a class="navbar-brand" href="index.html">
-            <img id="logo" src="img/general/logoblack.png" alt="Logo" height="50">
-        </a>
+        <a class="navbar-brand" href="index.html">Productivity Site</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="notes.html">Notes</a></li>
-                <li class="nav-item"><a class="nav-link" href="pomodoro.html">Pomodoro</a></li>
-                <li class="nav-item"><a class="nav-link" href="todos.html">To-Do List</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="notes.html">Notes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="pomodoro.html">Pomodoro</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="todos.html">To-Do List</a>
+                </li>
             </ul>
+
             <!-- Circular Icon Buttons -->
-            <button class="icon-button" id="colorToggle" aria-label="Change Color" onclick="toggleDarkMode()">🎨</button>
-            <button class="icon-button" id="languageToggle" aria-label="Select Language">🌐</button>
-            <!-- Menu Icon -->
+            <button class="icon-button" id="colorToggle" aria-label="Change Color" onclick="toggleDarkMode()">
+                🎨
+            </button>
+            <button class="icon-button" id="languageToggle" aria-label="Select Language">
+                🌐
+            </button>
+
+            <!-- Menu Icon (Circular with Three Dots) -->
             <div class="dropdown">
-                <button class="icon-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">...</button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton"></div>
+                <button class="icon-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    ...
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    <!-- Content Left Blank -->
+                </div>
             </div>
         </div>
     </nav>
 
+
+
     <!-- Main Content Area -->
     <div class="container mt-4">
-        <h1>To-Do List</h1>
-        <p>This is the To-Do List page. You can add your list functionalities here.</p>
+        <h1>Page Title</h1>
+        <p>This is the content area of the page. Each page will add its unique content here.</p>
     </div>
 
-    <!-- JavaScript Files -->
+
+    
+    <!-- Bootstrap and General JavaScript Files -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
-<<<<<<< HEAD
-=======
-    <p>selam merhaba bu benim denemem</p>
->>>>>>> main
+
+    <!-- JavaScript for Dark Mode Toggle -->
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
 </body>
 </html>
