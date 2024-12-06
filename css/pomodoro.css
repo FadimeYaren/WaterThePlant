@@ -1,0 +1,296 @@
+/* Tam sayfa merkezleme ve genel stil */
+body, html {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* Uygulama genel ayarları */
+#app {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Merkez Kutu */
+#center-box {
+    display: flex; /* Bölümleri yan yana hizalamak için */
+    flex-direction: row; /* Yatay yerleşim */
+    align-items: center;
+    justify-content: center;
+    width: 800px;
+    height: 600px;
+    background-color: rgba(206, 206, 206, 0.059);
+    border: 1px solid #383838;
+    border-radius: 7px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    text-align: center;
+    transition: all 0.5s ease; /* Açılır/kapanır animasyon */
+}
+
+/* Sol Bölüm (Bitki ve Zamanlayıcı) */
+#left-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s ease; /* Geçiş efekti */
+}
+
+/* Bitki Dairesi Stili */
+#circular-timer {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: rgba(224, 255, 224, 0.3);
+    margin: 40px auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+#plant-stage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Görselin orantılı şekilde yerleşmesi */
+}
+
+/* Zaman Göstergesi */
+#timer-display {
+    font-size: 2rem;
+    margin: 15px 0;
+    color: #333;
+}
+
+/* Başlat ve Durdur Butonları */
+#start-button, #stop-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #137661;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#start-button:hover, #stop-button:hover {
+    background-color: #0c4f40;
+}
+
+/* Sağ Bölüm (Ayar Paneli) */
+#right-section {
+    display: flex; /* Flexbox düzeni */
+    flex-direction: column; /* İçerikleri alt alta yerleştir */
+    align-items: center; /* İçerikleri yatay olarak ortala */
+    justify-content: center; /* İçerikleri dikey olarak ortala */
+    flex: 0; /* Başlangıçta sıfır genişlik */
+    max-width: 0; /* Başlangıçta görünmez */
+    opacity: 0; /* Başlangıçta görünmez */
+    overflow: hidden; /* Taşmaları gizle */
+    transition: all 0.5s ease; /* Açılır/kapanır animasyon */
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0); /* Başlangıçta görünmez */
+    border-radius: 10px;
+    box-shadow: 0;
+}
+
+/* Ayar Paneli Görünürken */
+#right-section.visible {
+    flex: 2;
+    max-width: 300px;
+    opacity: 1;
+    padding: 20px;
+}
+
+/* Ayar Paneli Başlık ve Form */
+#right-section h3 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #137661;
+}
+
+#right-section label {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+#right-section input {
+    display: flex;
+    width: 80%;
+    padding: 5px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    text-align: center; 
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+#right-section button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#right-section button:hover {
+    background-color: #45a049;
+}
+
+/* Aç/Kapat Butonu */
+#toggle-settings {
+    position: absolute; /* Butonun sağda hizalanması için relative */
+    margin-left: 20px; /* Bitkiden biraz boşluk bırak */
+    padding: 10px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 10; /* Üstte görünmesini sağlar */
+    align-self: flex-end; /* Sağda hizalanır */
+}
+
+#toggle-settings:hover {
+    background-color: #45a049;
+}
+
+
+
+
+
+/* Timer Mode butonları */
+#timer-mode-buttons {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+#timer-mode-buttons button {
+    padding: 5px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 0;
+    font-size: 16px;
+    margin: 0;
+}
+
+#timer-mode-buttons button:hover {
+    background-color: #45a049;
+}
+
+
+
+/* Kayan Yıldızlar */
+.night {
+    display: none;
+}
+
+body.dark-mode .night {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.shooting_star {
+    position: absolute;
+    width: 2px;
+    height: 100px;
+    background: linear-gradient(-45deg, white, rgba(255, 255, 255, 0));
+    top: -100px;
+    right: -100px;
+    transform: rotate(-45deg);
+    animation: shooting linear infinite;
+    opacity: 0;
+}
+
+@keyframes shooting {
+    0% {
+        opacity: 0;
+        transform: translate(-100px, -100px) rotate(-45deg);
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(100vw, 100vh) rotate(-45deg);
+        opacity: 0;
+    }
+}
+
+
+
+/*WATER*/
+/* Dairesel Zamanlayıcı */
+#circular-timer {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden; /* Resmin dışarı taşmasını önler */
+    background-color: #333;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    margin: auto;
+}
+
+/* Çevresinde Dolan Çizgi */
+#progress-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    clip-path: circle(50%);
+    background: conic-gradient(
+        #00f3ff 0%,
+        #00f3ff 0%,
+        transparent 0%,
+        transparent 100%
+    );
+}
+
+/* Merkezdeki İçerik (Bitki Görseli) */
+#content {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    overflow: hidden; /* Resmin dışarı taşmasını önler */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #222; /* Arka plan daire */
+}
+
+#plant-stage {
+    width: 100%; /* Görselin daireye tam oturmasını sağlar */
+    height: auto;
+    object-fit: cover;
+}

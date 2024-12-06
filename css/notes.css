@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+/* Basic Settings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #f7f7f7; /* Background color */
+}
+
+/* Main Div */
+.main-div {
+    min-height: 100vh;
+    max-width: 100vw;
+    overflow: auto;
+    padding: 20px;
+}
+
+/* Title Styles */
+#heading {
+    text-align: center;
+    color: #317773; /* Green tone */
+    letter-spacing: 2px;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Note Adding Area */
+.addNote {
+    max-width: 700px; /* Width limit */
+    margin: auto; /* Center it */
+    background-color: #e8f5e9; /* Pastel green */
+    border-radius: 20px;
+    border: 1px solid #81c784; /* Border color */
+    padding: 30px;
+}
+
+/* Input Area */
+#input-title,
+#input-text {
+    width: 100%; /* Full width */
+    padding: 10px;
+    margin-top: 10px; /* Top margin */
+    border: 2px solid #b0bec5;
+    border-radius: 10px;
+}
+
+/* Button Style */
+#add-btn {
+    margin-top: 15px; /* Top margin */
+    width: 100%; /* Full width */
+    padding: 10px;
+    background-color: #81c784;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+
+#add-btn:hover {
+    background-color: #66bb6a; /* Hover effect */
+}
+
+/* Display Notes Area */
+#showNotes {
+    display: flex;
+    flex-direction: column; /* Vertical alignment */
+    align-items: center; /* Centered */
+    margin-top: 20px;
+}
+
+/* Each Note Style */
+.note {
+    background-color: #edf3ed; /* Light white */
+    border: 2px solid #e0e0e0;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 10px;
+    width: 300px; /* Note width */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Shadow */
+    position: relative; /* Relative position */
+}
+
+.completed {
+    text-decoration: line-through; /* Strike-through */
+    color: #9e9e9e; /* Gray color */
+}
+
+/* Button Styles */
+.complete-btn, .delete-btn, .download-btn {
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.complete-btn {
+    background-color: #4caf50; /* Green */
+    color: white;
+}
+
+.complete-btn:hover {
+    background-color: #45a049; /* Hover effect */
+}
+
+.delete-btn {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f; /* Hover effect */
+}
+
+.download-btn {
+    background-color: #1e88e5; /* Mavi ton */
+    color: white;
+}
+
+.download-btn:hover {
+    background-color: #1565c0; /* Hover efekti */
+}
+
+/* Responsive Settings */
+@media (max-width: 768px) {
+    .note {
+        width: 90%; /* Increase width on narrower screens */
+    }
+}
