@@ -1,0 +1,180 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    background: white;
+    font-size: 1.1rem;
+    font-family: 'Quicksand', sans-serif;
+    height: 100%;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex-direction: column; /* Align items vertically */
+}
+
+/* To-Do List Container */
+#todolist {
+    padding: 2rem 3rem 3rem;
+    max-width: 500px;
+    background: rgb(80, 120, 118);
+    color: #FFF;
+    box-shadow: -20px -20px 0px 0px rgba(100, 100, 100, 0.1);
+    border-radius: 8px; /* Rounded corners for modern look */
+    margin-top: 4rem; /* Add some margin at the top to move down */
+}
+
+/* To-Do List Heading */
+#todolist h1 {
+    font-weight: normal;
+    font-size: 2.6rem;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#todolist h1 span {
+    display: block;
+    font-size: 0.8rem;
+    margin-bottom: 0.7rem;
+    margin-left: 3px;
+    margin-top: 0.2rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Empty List Message */
+#todolist .emptylist {
+    margin-top: 2.6rem;
+    text-align: center;
+    letter-spacing: .05em;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* Task List Styling */
+#todolist ul {
+    margin-top: 2.6rem;
+    list-style: none;
+    padding: 0;
+}
+
+#todolist li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 -3rem 4px;
+    padding: 1.1rem 3rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+#todolist li:hover {
+    transform: scale(1.02);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Actions (Buttons) */
+#todolist .actions {
+    flex-shrink: 0;
+    padding-left: 0.7em;
+}
+
+#todolist .btn-picto {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #FFF;
+    font-size: 1.2rem;
+    transition: color 0.2s;
+}
+
+#todolist .btn-picto:hover {
+    color: #FF5E5E;
+}
+
+/* Task Label */
+#todolist .label {
+    position: relative;
+    transition: opacity 0.2s linear;
+}
+
+#todolist .done .label {
+    opacity: 0.6;
+}
+
+#todolist .done .label:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -0.5rem;
+    display: block;
+    width: 0%;
+    height: 1px;
+    background: #FFF;
+    animation: strikeitem 0.3s ease-out forwards;
+}
+
+@keyframes strikeitem {
+    to {
+        width: calc(100% + 1rem);
+    }
+}
+
+/* Form Styling */
+form {
+    margin-top: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+form input {
+    flex-grow: 1;
+    border: none;
+    background: #f7f1f1;
+    padding: 0 1.5em;
+    height: 3rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Quicksand', sans-serif;
+}
+
+form button {
+    padding: 0 1.3rem;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: background 0.2s ease-out, color 0.2s;
+    border-radius: 6px;
+}
+
+form button:hover {
+    background: #FF5E5E;
+    color: white;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+    #todolist {
+        padding: 1.5rem;
+        margin: 2rem auto;
+    }
+
+    form input,
+    form button {
+        font-size: 0.9rem;
+        height: 2.5rem;
+    }
+
+    #todolist li {
+        padding: 0.8rem 2rem;
+    }
+}
