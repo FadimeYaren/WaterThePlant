@@ -1,107 +1,106 @@
-console.log("starting Notes app....");
+console.log("Starting Notes app....");
 
-const title = document.getElementById('input-title');
-const text = document.getElementById('input-text');
+const titleInput = document.getElementById('input-title');
+const textInput = document.getElementById('input-text');
 const addBtn = document.getElementById('add-btn');
-const displaynotes = document.getElementById('showNotes');
+const displayNotes = document.getElementById('showNotes');
+const categoryInput = document.getElementById('input-category');
+const tagsInput = document.getElementById('input-tags');
 
-let selectedColor = "#ffffff"; // Varsayılan renk
+let selectedColor = "#ffffff"; // Default color
 
-settingLocalStorage();
+// Initialize local storage
+initializeLocalStorage();
 
-function settingLocalStorage() {
-    if (localStorage.getItem('notes') == null) {
-        console.log("setting up local storage......");
+function initializeLocalStorage() {
+    if (localStorage.getItem('notes') === null) {
+        console.log("Setting up local storage...");
         localStorage.setItem('notes', JSON.stringify([]));
     }
 }
 
-function addNoteonClick() {
-    console.log("click working");
-    console.log(title.value + "--" + text.value);
+// Add a new note when the button is clicked
+function addNoteOnClick() {
+    console.log("Click detected");
+    
+    const title = titleInput.value.trim();
+    const text = textInput.value.trim();
+    const category = categoryInput.value.trim();
+    const tags = tagsInput.value.trim().split(',').map(tag => tag.trim());
 
-    if (title.value === "") {
+    if (!title) {
         alert("Please add a title");
         return;
     }
 
-    if (text.value === "") {
+    if (!text) {
         alert("Empty notes cannot be added");
         return;
     }
 
     const noteObj = {
-        Title: title.value,
-        Text: text.value,
-        Color: selectedColor, // Seçilen renk
-        Completed: false // Yeni alan
+        Title: title,
+        Text: text,
+        Color: selectedColor,
+        Category: category, // New category field
+        Tags: tags, // New tags field
+        Completed: false
     };
 
-    let prevSavedNotes = JSON.parse(localStorage.getItem('notes'));
-    prevSavedNotes.push(noteObj);
-    localStorage.setItem('notes', JSON.stringify(prevSavedNotes));
+    const savedNotes = JSON.parse(localStorage.getItem('notes'));
+    savedNotes.push(noteObj);
+    localStorage.setItem('notes', JSON.stringify(savedNotes));
 
-    title.value = ""; // Clear input
-    text.value = ""; // Clear input
-    selectedColor = "#ffffff"; // Varsayılan renk olarak sıfırlanacak
-    showNotes();
+    // Clear inputs
+    titleInput.value = "";
+    textInput.value = "";
+    categoryInput.value = "";
+    tagsInput.value = "";
+    selectedColor = "#ffffff"; // Reset to default color
+
+    displayNotesList();
 }
 
-function showNotes() {
-    let savedNotes = JSON.parse(localStorage.getItem('notes'));
-    displaynotes.innerHTML = ""; // Clear previous notes before showing new ones
+// Display saved notes
+function displayNotesList() {
+    const savedNotes = JSON.parse(localStorage.getItem('notes'));
+    displayNotes.innerHTML = ""; // Clear previous notes
 
     savedNotes.forEach((note, index) => {
-        let noteDiv = document.createElement('div');
-        noteDiv.className = 'note'; // Add class to each note
-        noteDiv.style.backgroundColor = note.Color; // Dinamik renk atama
+        const noteDiv = document.createElement('div');
+        noteDiv.className = 'note';
+        noteDiv.style.backgroundColor = note.Color;
+
         noteDiv.innerHTML = `
-            <div class="${note.Completed ? 'completed' : ''}">
+            <div class="note-content">
                 <div id="show-title">${note.Title}</div>
                 <div id="show-text">${note.Text}</div>
-                <button class="complete-btn" onclick="markAsCompleted(${index})">
-                    ${note.Completed ? '✔️ Completed' : '🟢 Complete'}
-                </button>
-                <button class="delete-btn" onclick="deleteNote(${index})">Delete</button>
-                <button class="download-btn" onclick="downloadNote(${index})">Download</button>
+                <div id="show-category"><strong>Category:</strong> ${note.Category || 'No category'}</div>
+                <div id="show-tags"><strong>Tags:</strong> ${note.Tags.length ? note.Tags.join(', ') : 'No tags'}</div>
+            </div>
+            <div class="note-actions">
+                <span class="delete-btn" onclick="deleteNote(${index})">❌</span>
             </div>
         `;
-        displaynotes.appendChild(noteDiv);
+        displayNotes.appendChild(noteDiv);
     });
 }
 
-function markAsCompleted(index) {
-    let savedNotes = JSON.parse(localStorage.getItem('notes'));
-    savedNotes[index].Completed = !savedNotes[index].Completed; // Toggle completion status
-    localStorage.setItem('notes', JSON.stringify(savedNotes));
-    showNotes(); // Show updated notes
-}
-
+// Delete the note when the X is clicked
 function deleteNote(index) {
-    let savedNotes = JSON.parse(localStorage.getItem('notes'));
+    const savedNotes = JSON.parse(localStorage.getItem('notes'));
     savedNotes.splice(index, 1); // Remove note
     localStorage.setItem('notes', JSON.stringify(savedNotes));
-    showNotes(); // Show updated notes
+    displayNotesList(); // Re-render notes
 }
 
-function downloadNote(index) {
-    let savedNotes = JSON.parse(localStorage.getItem('notes'));
-    const note = savedNotes[index];
-    const noteContent = `Title: ${note.Title}\n\n${note.Text}`;
-    const blob = new Blob([noteContent], { type: 'text/plain' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `${note.Title}.txt`;
-    link.click();
+// Set note color
+function setNoteColor(color) {
+    selectedColor = color;
 }
+
+// Execute addNoteOnClick when the button is clicked
+addBtn.addEventListener('click', addNoteOnClick);
 
 // Show notes on page load
-showNotes();
-
-// Execute addNoteonClick function when the button is clicked
-addBtn.addEventListener('click', addNoteonClick);
-
-// Renk seçme fonksiyonu
-function setNoteColor(color) {
-    selectedColor = color; // Seçilen rengi kaydet
-}
+displayNotesList();
