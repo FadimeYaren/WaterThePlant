@@ -32,14 +32,16 @@ body {
 }
 
 /* Note Adding Area */
+/* Note Adding Area */
 .addNote {
     max-width: 700px; /* Width limit */
     margin: auto; /* Center it */
-    background-color: #e8f5e9; /* Pastel green */
+    background: linear-gradient(to right, #f0e5de, #d0e7f1, #e0f5e0, #f7e7f7, #f5d6d9); /* Soft Pastel Rainbow Gradient */
     border-radius: 20px;
-    border: 1px solid #81c784; /* Border color */
+    border: 1px solid #e0e0e0; /* Soft border */
     padding: 30px;
 }
+
 
 /* Input Area */
 #input-title,
@@ -52,22 +54,25 @@ body {
 }
 
 /* Button Style */
+/* Button Style */
 #add-btn {
     margin-top: 15px; /* Top margin */
-    width: 100%; /* Full width */
-    padding: 10px;
-    background-color: #81c784;
-    color: white;
+    width: auto; /* Auto width to fit content */
+    padding: 8px 15px; /* Smaller padding for a smaller button */
+    background-color: #d3c0f5; /* Soft pastel purple */
+    color: rgb(2, 75, 38);
     border: none;
-    border-radius: 10px;
+    border-radius: 20px;
     font-weight: 600;
     transition: background-color 0.3s, transform 0.3s;
     cursor: pointer;
+    font-size: 1rem; /* Smaller text size */
 }
 
 #add-btn:hover {
-    background-color: #66bb6a; /* Hover effect */
+    background-color: #b8a3d9; /* Slightly darker pastel purple for hover effect */
 }
+
 
 /* Display Notes Area */
 #showNotes {
@@ -136,4 +141,31 @@ body {
     .note {
         width: 90%; /* Increase width on narrower screens */
     }
+}
+
+/* Renk Seçenekleri (Yuvarlaklar) */
+.color-picker-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.color-options {
+    display: flex;
+    gap: 10px; /* Yuvarlaklar arasındaki mesafe */
+}
+
+.color-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; /* Yuvarlak yapmak için */
+    cursor: pointer;
+    border: 2px solid #ccc;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.color-circle:hover {
+    transform: scale(1.2); /* Hover efekti */
+    border-color: #000; /* Hover border */
 }

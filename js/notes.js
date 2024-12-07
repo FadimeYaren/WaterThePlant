@@ -5,6 +5,8 @@ const text = document.getElementById('input-text');
 const addBtn = document.getElementById('add-btn');
 const displaynotes = document.getElementById('showNotes');
 
+let selectedColor = "#ffffff"; // Varsayılan renk
+
 settingLocalStorage();
 
 function settingLocalStorage() {
@@ -31,7 +33,8 @@ function addNoteonClick() {
     const noteObj = {
         Title: title.value,
         Text: text.value,
-        Completed: false // New field
+        Color: selectedColor, // Seçilen renk
+        Completed: false // Yeni alan
     };
 
     let prevSavedNotes = JSON.parse(localStorage.getItem('notes'));
@@ -40,6 +43,7 @@ function addNoteonClick() {
 
     title.value = ""; // Clear input
     text.value = ""; // Clear input
+    selectedColor = "#ffffff"; // Varsayılan renk olarak sıfırlanacak
     showNotes();
 }
 
@@ -50,6 +54,7 @@ function showNotes() {
     savedNotes.forEach((note, index) => {
         let noteDiv = document.createElement('div');
         noteDiv.className = 'note'; // Add class to each note
+        noteDiv.style.backgroundColor = note.Color; // Dinamik renk atama
         noteDiv.innerHTML = `
             <div class="${note.Completed ? 'completed' : ''}">
                 <div id="show-title">${note.Title}</div>
@@ -95,3 +100,8 @@ showNotes();
 
 // Execute addNoteonClick function when the button is clicked
 addBtn.addEventListener('click', addNoteonClick);
+
+// Renk seçme fonksiyonu
+function setNoteColor(color) {
+    selectedColor = color; // Seçilen rengi kaydet
+}
