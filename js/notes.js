@@ -42,8 +42,8 @@ function addNoteOnClick() {
         Title: title,
         Text: text,
         Color: selectedColor,
-        Category: category, // New category field
-        Tags: tags, // New tags field
+        Category: category,
+        Tags: tags,
         Completed: false
     };
 
@@ -70,6 +70,8 @@ function displayNotesList() {
         const noteDiv = document.createElement('div');
         noteDiv.className = 'note';
         noteDiv.style.backgroundColor = note.Color;
+        noteDiv.draggable = true;
+        noteDiv.dataset.index = index;
 
         noteDiv.innerHTML = `
             <div class="note-content">
@@ -82,8 +84,59 @@ function displayNotesList() {
                 <span class="delete-btn" onclick="deleteNote(${index})">❌</span>
             </div>
         `;
+
+        // Add drag events
+        noteDiv.addEventListener('dragstart', handleDragStart);
+        noteDiv.addEventListener('dragover', handleDragOver);
+        noteDiv.addEventListener('dragleave', handleDragLeave);
+        noteDiv.addEventListener('drop', handleDrop);
+        noteDiv.addEventListener('dragend', handleDragEnd);
+
         displayNotes.appendChild(noteDiv);
     });
+}
+
+// Drag and Drop Handlers
+let draggedItem = null;
+
+function handleDragStart(e) {
+    draggedItem = this;
+    this.style.opacity = '0.5'; // Make the item semi-transparent
+}
+
+function handleDragOver(e) {
+    e.preventDefault();
+    const draggingOver = e.target.closest('.note');
+    if (draggingOver && draggingOver !== draggedItem) {
+        draggingOver.style.border = "2px dashed #317773"; // Highlight target
+    }
+}
+
+function handleDragLeave(e) {
+    const draggingOver = e.target.closest('.note');
+    if (draggingOver) {
+        draggingOver.style.border = "none"; // Remove highlight
+    }
+}
+
+function handleDrop(e) {
+    e.preventDefault();
+    const draggingOver = e.target.closest('.note');
+    if (draggingOver && draggingOver !== draggedItem) {
+        const draggingIndex = parseInt(draggedItem.dataset.index);
+        const overIndex = parseInt(draggingOver.dataset.index);
+        const savedNotes = JSON.parse(localStorage.getItem('notes'));
+
+        // Swap the notes in the array
+        [savedNotes[draggingIndex], savedNotes[overIndex]] = [savedNotes[overIndex], savedNotes[draggingIndex]];
+        localStorage.setItem('notes', JSON.stringify(savedNotes));
+        displayNotesList();
+    }
+}
+
+function handleDragEnd() {
+    this.style.opacity = '1'; // Reset opacity
+    document.querySelectorAll('.note').forEach(note => note.style.border = "none"); // Remove highlight
 }
 
 // Delete the note when the X is clicked
