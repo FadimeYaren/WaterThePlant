@@ -9,7 +9,8 @@
 }
 
 body {
-    background-color: #f7f7f7; /* Background color */
+    background-color: #f7f7f7; /* Light background */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 /* Main Div */
@@ -35,105 +36,147 @@ body {
 .addNote {
     max-width: 700px; /* Width limit */
     margin: auto; /* Center it */
-    background-color: #e8f5e9; /* Pastel green */
+    background: linear-gradient(to right, #f0e5de, #d0e7f1, #e0f5e0, #f7e7f7, #f5d6d9); /* Soft pastel rainbow gradient */
     border-radius: 20px;
-    border: 1px solid #81c784; /* Border color */
+    border: 1px solid #e0e0e0; /* Soft border */
     padding: 30px;
 }
 
 /* Input Area */
 #input-title,
-#input-text {
+#input-text,
+#input-category,
+#input-tags {
     width: 100%; /* Full width */
     padding: 10px;
     margin-top: 10px; /* Top margin */
     border: 2px solid #b0bec5;
     border-radius: 10px;
+    transition: border 0.3s ease;
+}
+
+#input-title:focus,
+#input-text:focus,
+#input-category:focus,
+#input-tags:focus {
+    border-color: #317773;
 }
 
 /* Button Style */
 #add-btn {
     margin-top: 15px; /* Top margin */
-    width: 100%; /* Full width */
-    padding: 10px;
-    background-color: #81c784;
-    color: white;
+    padding: 8px 15px;
+    background-color: #d3c0f5; /* Soft pastel purple */
+    color: rgb(2, 75, 38);
     border: none;
-    border-radius: 10px;
+    border-radius: 20px;
     font-weight: 600;
     transition: background-color 0.3s, transform 0.3s;
     cursor: pointer;
+    font-size: 1rem;
 }
 
 #add-btn:hover {
-    background-color: #66bb6a; /* Hover effect */
+    background-color: #b8a3d9; /* Slightly darker pastel purple */
+    transform: scale(1.05); /* Slight scaling on hover */
 }
 
 /* Display Notes Area */
 #showNotes {
     display: flex;
-    flex-direction: column; /* Vertical alignment */
-    align-items: center; /* Centered */
+    flex-wrap: wrap; /* Arrange notes in a responsive grid */
+    justify-content: center; /* Center notes horizontally */
+    gap: 20px; /* Space between notes */
     margin-top: 20px;
 }
 
 /* Each Note Style */
 .note {
+    position: relative;
     background-color: #edf3ed; /* Light white */
     border: 2px solid #e0e0e0;
     border-radius: 20px;
     padding: 15px;
     margin: 10px;
-    width: 300px; /* Note width */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Shadow */
-    position: relative; /* Relative position */
+    width: 300px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, border 0.2s ease; /* Smooth dragging */
 }
 
-.completed {
-    text-decoration: line-through; /* Strike-through */
-    color: #9e9e9e; /* Gray color */
+.note:hover {
+    transform: scale(1.02); /* Slight zoom */
+    border-color: #317773; /* Highlight border on hover */
 }
 
-/* Button Styles */
-.complete-btn, .delete-btn, .download-btn {
-    padding: 8px;
-    border: none;
-    border-radius: 5px;
-    margin-top: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.note[draggable="true"] {
+    cursor: grab;
 }
 
-.complete-btn {
-    background-color: #4caf50; /* Green */
-    color: white;
+.note:active {
+    cursor: grabbing;
+    transform: scale(1.05); /* Slightly enlarge while dragging */
 }
 
-.complete-btn:hover {
-    background-color: #45a049; /* Hover effect */
+/* Delete Button Style */
+.note-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .delete-btn {
-    background-color: #f44336; /* Red */
-    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #e07b7b;
+    transition: transform 0.3s ease, background-color 0.3s ease, border-radius 0.3s ease;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(224, 224, 224, 0.8);
 }
 
 .delete-btn:hover {
-    background-color: #d32f2f; /* Hover effect */
+    background-color: rgba(224, 224, 224, 0.8);
+    color: #ff4d4d;
+    transform: scale(1.1);
 }
 
-.download-btn {
-    background-color: #1e88e5; /* Mavi ton */
-    color: white;
+.delete-btn:active {
+    transform: scale(1);
 }
 
-.download-btn:hover {
-    background-color: #1565c0; /* Hover efekti */
+/* Completed Notes */
+.completed {
+    text-decoration: line-through;
+    background-color: #e0e0e0;
 }
 
-/* Responsive Settings */
+/* Color Selector */
+.color-selector {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.color-selector button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+
+.color-selector button:hover {
+    transform: scale(1.1); /* Highlight color options on hover */
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
     .note {
-        width: 90%; /* Increase width on narrower screens */
+        width: 90%; /* Adjust note width for smaller screens */
+    }
+
+    .addNote {
+        padding: 20px; /* Reduce padding for smaller screens */
     }
 }
