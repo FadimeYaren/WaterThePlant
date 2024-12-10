@@ -1,0 +1,50 @@
+/* Circular button style */
+.icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #6c757d;
+    background-color: #f8f9fa;
+    color: #6c757d;
+    font-size: 1.2rem;
+    margin-right: 8px;
+}
+
+/* Navbar padding */
+body {
+    padding-top: 70px;
+}
+
+/* Dark mode styling */
+.dark-mode {
+    background-color: #050111;
+    color: #ffffff;
+}
+
+/* Navbar styling in dark mode */
+.dark-mode .navbar {
+    background-color: #050117 !important;
+    color: #ffffff !important;
+}
+
+.dark-mode .navbar a.nav-link,
+.dark-mode .navbar .navbar-brand {
+    color: #ffffff !important;
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
