@@ -7,8 +7,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Custom Styles -->
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/todos.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="todos.css">
     <!-- Bootstrap Animations -->
     <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
 </head>
@@ -63,13 +63,13 @@
         <!-- Tabs for categories -->
         <ul class="nav nav-tabs" id="categoryTabs" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="work-tab" data-toggle="tab" href="#work" role="tab" aria-controls="work" aria-selected="true">Work</a>
+                <a class="nav-link active" id="work-tab" data-toggle="tab" href="#work" role="tab" aria-controls="work" aria-selected="true" data-lang="work">Work</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="false">Personal</a>
+                <a class="nav-link" id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="false" data-lang="personal">Personal</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="education-tab" data-toggle="tab" href="#education" role="tab" aria-controls="education" aria-selected="false">Education</a>
+                <a class="nav-link" id="education-tab" data-toggle="tab" href="#education" role="tab" aria-controls="education" aria-selected="false" data-lang="education">Education</a>
             </li>
         </ul>
 
@@ -86,24 +86,24 @@
             </div>
         </div>
 
-        <p class="emptylist" id="empty-message">Your to-do list is empty.</p>
+        <p class="emptylist" id="empty-message" data-lang="emptyMessage">Your to-do list is empty.</p>
 
         <!-- Form to add new tasks -->
         <form id="newform" class="mt-3">
-            <label for="newitem" class="form-label">Add to the to-do list</label>
+            <label for="newitem" class="form-label" data-lang="addItemLabel">Add to the to-do list</label>
             <select id="categorySelect" class="form-control mb-2">
-                <option value="work">Work</option>
-                <option value="personal">Personal</option>
-                <option value="education">Education</option>
+                <option value="work" data-lang="work">Work</option>
+                <option value="personal" data-lang="personal">Personal</option>
+                <option value="education" data-lang="education">Education</option>
             </select>
-            <input type="text" name="newitem" id="newitem" placeholder="What do you need to do?" class="form-control mb-2">
+            <input type="text" name="newitem" id="newitem" placeholder="What do you need to do?" class="form-control mb-2" data-lang-placeholder="newItemPlaceholder">
             
             <!-- Priority Slider -->
-            <label for="prioritySlider" class="form-label">Priority Level:</label>
+            <label for="prioritySlider" class="form-label" data-lang="priorityLevel">Priority Level:</label>
             <input type="range" class="custom-range" id="prioritySlider" min="1" max="5" step="1" value="3">
-            <p class="text-center mt-1" id="priorityValue">Priority: 3</p>
+            <p class="text-center mt-1" id="priorityValue" data-lang="priority">Priority: 3</p>
             
-            <button type="submit" class="btn btn-primary btn-block">Add Item</button>
+            <button type="submit" class="btn btn-primary btn-block" data-lang="addButton">Add Item</button>
         </form>
         
     </main>
@@ -111,7 +111,7 @@
     <!-- JavaScript Files -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/todos.js"></script>
-    <script src="js/script.js"></script>
+    <script src="todos.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
