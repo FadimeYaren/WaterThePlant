@@ -1,3 +1,4 @@
+// Dark mode toggle function
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
     
@@ -10,7 +11,6 @@ function toggleDarkMode() {
     }
 }
 
-// Language translations
 const translations = {
     tr: {
         home: "Anasayfa",
@@ -20,8 +20,13 @@ const translations = {
         title: "Yapılacaklar Listesi",
         content: "Bir seferde bir işi halledin.",
         emptyMessage: "Yapılacaklar listeniz boş.",
+        work: "İş",
+        personal: "Kişisel",
+        education: "Eğitim",
         addItemLabel: "Yapılacaklar listesine ekle",
         newItemPlaceholder: "Ne yapmanız gerekiyor?",
+        priorityLevel: "Öncelik Seviyesi:",
+        priority: "Öncelik: 3",
         addButton: "Ekle"
     },
     en: {
@@ -32,8 +37,13 @@ const translations = {
         title: "To-Do List",
         content: "Get things done, one item at a time.",
         emptyMessage: "Your to-do list is empty.",
+        work: "Work",
+        personal: "Personal",
+        education: "Education",
         addItemLabel: "Add to the to-do list",
         newItemPlaceholder: "What do you need to do?",
+        priorityLevel: "Priority Level:",
+        priority: "Priority: 3",
         addButton: "Add Item"
     },
     de: {
@@ -44,22 +54,30 @@ const translations = {
         title: "To-Do-Liste",
         content: "Erledige die Dinge, einen Gegenstand nach dem anderen.",
         emptyMessage: "Deine To-Do-Liste ist leer.",
+        work: "Arbeit",
+        personal: "Persönlich",
+        education: "Bildung",
         addItemLabel: "Zur To-Do-Liste hinzufügen",
         newItemPlaceholder: "Was musst du tun?",
+        priorityLevel: "Prioritätsstufe:",
+        priority: "Priorität: 3",
         addButton: "Hinzufügen"
     }
 };
 
-
-// Language switcher function
 function setLanguage(lang) {
-    document.querySelectorAll('[data-lang]').forEach(element => {
-        const key = element.getAttribute('data-lang');
+    document.querySelectorAll('[data-lang]').forEach(el => {
+        const key = el.getAttribute('data-lang');
         if (translations[lang] && translations[lang][key]) {
-            element.textContent = translations[lang][key];
+            el.textContent = translations[lang][key];
+        }
+    });
+    document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-lang-placeholder');
+        if (translations[lang] && translations[lang][key]) {
+            el.placeholder = translations[lang][key];
         }
     });
 }
 
-// Default language on page load
-setLanguage('en');
+setLanguage('en'); // Default language
