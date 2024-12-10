@@ -1,108 +1,118 @@
-// DOM elements
-const todoInput = document.getElementById('newitem');
-const todoList = document.querySelector('#todolist ul');
-const todoForm = document.querySelector('#todolist form');
+document.addEventListener('DOMContentLoaded', () => {
+  const categorySelect = document.getElementById('categorySelect');
+  const todoListElements = {
+      work: document.getElementById('todo-list-work'),
+      personal: document.getElementById('todo-list-personal'),
+      education: document.getElementById('todo-list-education'),
+  };
+  const newItemInput = document.getElementById('newitem');
+  const newForm = document.getElementById('newform');
+  const emptyMessage = document.getElementById('empty-message');
+  const prioritySlider = document.getElementById('prioritySlider');
+  const priorityValue = document.getElementById('priorityValue');
+  const STORAGE_KEY = 'todoListWithCategories';
 
-// Load tasks from localStorage on page load
-document.addEventListener('DOMContentLoaded', loadTasks);
+  // Load data from localStorage
+  let todoList = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { work: [], personal: [], education: [] };
 
-// Add a new task when the form is submitted
-todoForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const taskText = todoInput.value.trim();
-
-  if (taskText) {
-    const task = {
-      text: taskText,
-      completed: false,
-    };
-    addTaskToDOM(task); // Add the task to the DOM
-    saveTaskToStorage(task); // Save the task to localStorage
-    todoInput.value = ''; // Clear the input field
+  // Save data to localStorage
+  function saveToLocalStorage() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(todoList));
   }
+
+  // Dynamically update slider value
+  prioritySlider.addEventListener('input', () => {
+      priorityValue.textContent = `Priority: ${prioritySlider.value}`;
+  });
+
+  // Render todos
+  function renderTodos() {
+      Object.keys(todoList).forEach((category) => {
+          const listElement = todoListElements[category];
+          listElement.innerHTML = '';
+
+          if (todoList[category].length === 0) {
+              emptyMessage.style.display = 'block';
+          } else {
+              emptyMessage.style.display = 'none';
+          }
+
+          todoList[category].forEach((todo, index) => {
+              const li = document.createElement('li');
+              li.className = `list-group-item d-flex justify-content-between align-items-center ${todo.done ? 'done' : ''}`;
+
+              const date = new Date(todo.date);
+              const formattedDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+
+              li.innerHTML = `
+                  <span>
+                      <span class="label">${todo.label}</span>
+                      <br><small class="task-date">${formattedDate}</small>
+                      <br><span class="badge badge-secondary">Priority: ${todo.priority}</span>
+                  </span>
+                  <div class="actions">
+                      <button class="btn-picto toggle-btn" aria-label="${todo.done ? 'Undone' : 'Done'}">
+                          ${todo.done ? '✔' : '☐'}
+                      </button>
+                      <button class="btn-picto delete-btn" aria-label="Delete">🗑</button>
+                  </div>
+              `;
+
+              // Toggle 'done' status with animation
+              li.querySelector('.toggle-btn').addEventListener('click', () => {
+                  todoList[category][index].done = !todoList[category][index].done;
+                  saveToLocalStorage();
+                  renderTodos(); // Re-render to update the UI
+              });
+
+              // Delete task with fade-out-right animation
+              li.querySelector('.delete-btn').addEventListener('click', () => {
+                  li.classList.add('fade-out-right'); // Add fade-out-right class
+                  setTimeout(() => {
+                      todoList[category].splice(index, 1);
+                      saveToLocalStorage();
+                      renderTodos();
+                  }, 500); // Wait for animation to complete before removing
+              });
+
+              // Append the list item with fade-in-up animation
+              listElement.appendChild(li);
+              setTimeout(() => {
+                  li.classList.add('fade-in-up'); // Add fade-in-up class after rendering
+              }, 10);
+          });
+      });
+
+      if (Object.keys(todoList).every((key) => todoList[key].length === 0)) {
+          emptyMessage.style.display = 'block';
+      }
+  }
+
+  // Add new task
+  newForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const newItemText = newItemInput.value.trim();
+      const selectedCategory = categorySelect.value;
+      const priority = prioritySlider.value;
+
+      if (newItemText) {
+          const newTask = {
+              label: newItemText,
+              done: false,
+              date: new Date().toISOString(),
+              priority, // Include priority level
+          };
+
+          todoList[selectedCategory].push(newTask);
+          newItemInput.value = '';
+          prioritySlider.value = '3'; // Reset slider to default
+          priorityValue.textContent = 'Priority: 3'; // Reset slider text
+          saveToLocalStorage();
+          renderTodos();
+      } else {
+          alert('Please enter a task!');
+      }
+  });
+
+  renderTodos();
 });
-
-// Function to add a task to the DOM
-function addTaskToDOM(task) {
-  const li = document.createElement('li');
-  li.className = task.completed ? 'done' : '';
-
-  // Task label
-  const label = document.createElement('span');
-  label.textContent = task.text;
-  label.className = 'label';
-  li.appendChild(label);
-
-  // Action buttons container
-  const actions = document.createElement('div');
-  actions.className = 'actions';
-
-  // Mark as done/undone button
-  const doneButton = document.createElement('button');
-  doneButton.className = 'btn-picto';
-  doneButton.setAttribute('aria-label', task.completed ? 'Undone' : 'Done');
-  doneButton.title = task.completed ? 'Undone' : 'Done';
-  doneButton.innerHTML = `<i class="material-icons">${task.completed ? 'check_box' : 'check_box_outline_blank'}</i>`;
-  doneButton.addEventListener('click', () => {
-    task.completed = !task.completed;
-    li.classList.toggle('done');
-    doneButton.innerHTML = `<i class="material-icons">${task.completed ? 'check_box' : 'check_box_outline_blank'}</i>`;
-    doneButton.setAttribute('aria-label', task.completed ? 'Undone' : 'Done');
-    doneButton.title = task.completed ? 'Undone' : 'Done';
-    updateTaskInStorage(task.text, task.completed);
-  });
-  actions.appendChild(doneButton);
-
-  // Delete button
-  const deleteButton = document.createElement('button');
-  deleteButton.className = 'btn-picto';
-  deleteButton.setAttribute('aria-label', 'Delete');
-  deleteButton.title = 'Delete';
-  deleteButton.innerHTML = `<i class="material-icons">delete</i>`;
-  deleteButton.addEventListener('click', () => {
-    li.remove();
-    deleteTaskFromStorage(task.text);
-  });
-  actions.appendChild(deleteButton);
-
-  li.appendChild(actions);
-  todoList.appendChild(li);
-}
-
-// Function to save a task to localStorage
-function saveTaskToStorage(task) {
-  const tasks = getTasksFromStorage();
-  tasks.push(task);
-  localStorage.setItem('tasks', JSON.stringify(tasks));
-}
-
-// Function to load tasks from localStorage
-function loadTasks() {
-  const tasks = getTasksFromStorage();
-  tasks.forEach((task) => addTaskToDOM(task));
-}
-
-// Function to get tasks from localStorage
-function getTasksFromStorage() {
-  const tasks = localStorage.getItem('tasks');
-  return tasks ? JSON.parse(tasks) : [];
-}
-
-// Function to update a task's completed status in localStorage
-function updateTaskInStorage(taskText, completed) {
-  const tasks = getTasksFromStorage();
-  const updatedTasks = tasks.map((task) => {
-    if (task.text === taskText) {
-      return { ...task, completed };
-    }
-    return task;
-  });
-  localStorage.setItem('tasks', JSON.stringify(updatedTasks));
-}
-
-// Function to delete a task from localStorage
-function deleteTaskFromStorage(taskText) {
-  const tasks = getTasksFromStorage();
-  const filteredTasks = tasks.filter((task) => task.text !== taskText);
-  localStorage.setItem('tasks', JSON.stringify(filteredTasks));
-}
