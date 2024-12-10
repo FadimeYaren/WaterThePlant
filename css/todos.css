@@ -1,4 +1,4 @@
-/* General Reset */
+/* Genel Stil */
 * {
     margin: 0;
     padding: 0;
@@ -7,174 +7,203 @@
 
 html, body {
     background: white;
-    font-size: 1.1rem;
+    font-size: 1rem; 
     font-family: 'Quicksand', sans-serif;
     height: 100%;
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    flex-direction: column; /* Align items vertically */
 }
 
 /* To-Do List Container */
 #todolist {
-    padding: 2rem 3rem 3rem;
-    max-width: 500px;
-    background: rgb(80, 120, 118);
+    margin: 3rem auto;
+    padding: 1.5rem 2rem 2rem; 
+    max-width: 600px; /* Daha geniş bir alan */
+    background: rgb(80, 120, 118); 
     color: #FFF;
-    box-shadow: -20px -20px 0px 0px rgba(100, 100, 100, 0.1);
-    border-radius: 8px; /* Rounded corners for modern look */
-    margin-top: 4rem; /* Add some margin at the top to move down */
+    box-shadow: -15px -15px 0px 0px rgba(255, 255, 255, .3); 
+    border-radius: 10px; /* Yuvarlatılmış köşeler */
 }
 
-/* To-Do List Heading */
 #todolist h1 {
-    font-weight: normal;
-    font-size: 2.6rem;
+    font-weight: bold;
+    font-size: 2rem; 
     letter-spacing: 0.05em;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, .3);
+    margin-bottom: 1rem;
 }
 
-#todolist h1 span {
-    display: block;
-    font-size: 0.8rem;
-    margin-bottom: 0.7rem;
-    margin-left: 3px;
-    margin-top: 0.2rem;
-    font-style: italic;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-/* Empty List Message */
-#todolist .emptylist {
-    margin-top: 2.6rem;
+/* Boş Mesaj */
+.emptylist {
+    margin-top: 2rem;
     text-align: center;
     letter-spacing: .05em;
     font-style: italic;
     opacity: 0.8;
+    color: #2c3e4d;  
+    font-size: 1rem; 
 }
 
-/* Task List Styling */
-#todolist ul {
-    margin-top: 2.6rem;
-    list-style: none;
-    padding: 0;
-}
-
-#todolist li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 -3rem 4px;
-    padding: 1.1rem 3rem;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
-    transition: transform 0.3s, background-color 0.3s;
-}
-
-#todolist li:hover {
-    transform: scale(1.02);
-    background: rgba(255, 255, 255, 0.15);
-}
-
-/* Actions (Buttons) */
-#todolist .actions {
-    flex-shrink: 0;
-    padding-left: 0.7em;
-}
-
-#todolist .btn-picto {
-    border: none;
-    background: none;
-    cursor: pointer;
+/* Kategoriler */
+#categoryTabs .nav-link {
+    background-color: rgba(255, 255, 255, 0.1);
     color: #FFF;
-    font-size: 1.2rem;
-    transition: color 0.2s;
-}
-
-#todolist .btn-picto:hover {
-    color: #FF5E5E;
-}
-
-/* Task Label */
-#todolist .label {
-    position: relative;
-    transition: opacity 0.2s linear;
-}
-
-#todolist .done .label {
-    opacity: 0.6;
-}
-
-#todolist .done .label:before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -0.5rem;
-    display: block;
-    width: 0%;
-    height: 1px;
-    background: #FFF;
-    animation: strikeitem 0.3s ease-out forwards;
-}
-
-@keyframes strikeitem {
-    to {
-        width: calc(100% + 1rem);
-    }
-}
-
-/* Form Styling */
-form {
-    margin-top: 3rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-form input {
-    flex-grow: 1;
-    border: none;
-    background: #f7f1f1;
-    padding: 0 1.5em;
-    height: 3rem;
-    border-radius: 6px;
+    border-radius: 0;
     font-size: 1rem;
-    font-family: 'Quicksand', sans-serif;
+    transition: background-color 0.3s ease;
 }
 
-form button {
-    padding: 0 1.3rem;
-    border: none;
-    background: rgba(255, 255, 255, 0.1);
-    color: black;
-    text-transform: uppercase;
-    font-weight: bold;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    cursor: pointer;
-    transition: background 0.2s ease-out, color 0.2s;
-    border-radius: 6px;
-}
-
-form button:hover {
-    background: #FF5E5E;
+#categoryTabs .nav-link.active {
+    background-color: #FF5E5E;
     color: white;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 576px) {
-    #todolist {
-        padding: 1.5rem;
-        margin: 2rem auto;
-    }
+#categoryContent .tab-pane {
+    margin-top: 1rem;
+}
 
-    form input,
-    form button {
-        font-size: 0.9rem;
-        height: 2.5rem;
-    }
+/* Tab İçindeki Görev Listeleri */
+.list-group {
+    margin-top: 1rem;
+}
 
-    #todolist li {
-        padding: 0.8rem 2rem;
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #FFF;
+    border-radius: 5px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.list-group-item:hover {
+    transform: scale(1.02);
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Görev Etiketleri */
+.task-date {
+    font-size: 0.8rem;
+    color: #ccc;
+}
+
+.label {
+    font-size: 1rem;
+}
+
+/* Tamamlanmış Görev */
+.list-group-item.done {
+    opacity: 0.6;
+    text-decoration: line-through;
+}
+
+/* Form */
+form {
+    margin-top: 2rem;
+}
+
+form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+form select, form input {
+    width: 100%;
+    border: none;
+    background: #f7f1f1;
+    padding: 0.6rem 1.2rem; 
+    font-size: 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+/* Add Item Button Custom Style */
+form .btn-primary {
+    background-color: rgb(120, 160, 158); /* Daha açık ton */
+    border: 3px solid rgb(80, 120, 118); /* Daha belirgin sınır */
+    color: white; /* Yazı rengi */
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1rem;
+    padding: 0.6rem 1.5rem;
+    border-radius: 6px; /* Hafifçe daha yuvarlatılmış */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover Durumu */
+form .btn-primary:hover {
+    background-color: rgba(120, 160, 158, 0.85); /* Hover için açık ton */
+    border-color: rgba(80, 120, 118, 0.85); /* Hover sınır tonu */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Daha belirgin gölge */
+}
+.custom-range {
+    background-color: rgb(80, 120, 118);
+    border-radius: 5px;
+    height: 6px;
+}
+
+.custom-range::-webkit-slider-thumb {
+    background: #fff;
+    border: 2px solid rgb(80, 120, 118);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.custom-range::-moz-range-thumb {
+    background: #fff;
+    border: 2px solid rgb(80, 120, 118);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.custom-range::-ms-thumb {
+    background: #fff;
+    border: 2px solid rgb(80, 120, 118);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+/* Tamamlanmış Görev */
+.list-group-item.done {
+    opacity: 0.6; /* Hafif solma */
+    text-decoration: line-through; /* Üstü çizili */
+    transition: opacity 0.5s ease, text-decoration 0.5s ease; /* Animasyon için geçiş */
+}
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
     }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOutRight {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.5s ease forwards; /* Fade in and slide up */
+}
+
+.fade-out-right {
+    animation: fadeOutRight 0.5s ease forwards; /* Fade out and slide right */
 }
