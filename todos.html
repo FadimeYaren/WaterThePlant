@@ -3,216 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productivity Site</title>
+    <title>WaterThePlant | To-Do List</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- General Stylesheet -->
-    <link rel="stylesheet" href="css/todos.css">
-    <script src="js/todos.js"></script>
-
-    <style>
-        /* Circular button style */
-        .icon-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 1px solid #6c757d;
-            background-color: #f8f9fa;
-            color: #6c757d;
-            font-size: 1.2rem;
-            margin-right: 8px;
-        }
-
-        /* Padding to avoid content overlapping with the navbar */
-        body {
-            padding-top: 70px;
-        }
-
-        /* Dark mode styling */
-        .dark-mode {
-            background-color: #121212;
-            color: #ffffff;
-        }
-
-        /* Navbar styling in dark mode */
-        .dark-mode .navbar {
-            background-color: #333333 !important;
-            color: #ffffff !important;
-        }
-
-        .dark-mode .navbar a.nav-link {
-            color: #ffffff !important;
-        }
-
-        .dark-mode .navbar .navbar-brand {
-            color: #ffffff !important;
-        }
-
-        /* Todo List Styles */
-        main#todolist {
-            margin-top: 20px;
-        }
-
-        main#todolist h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        main#todolist ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        main#todolist li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        main#todolist li.done {
-            text-decoration: line-through;
-            color: #aaa;
-        }
-
-        main#todolist .actions {
-            display: flex;
-            gap: 5px;
-        }
-
-        main#todolist .btn-picto {
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        main#todolist .btn-picto i {
-            font-size: 1.2rem;
-        }
-
-        main#todolist .emptylist {
-            text-align: center;
-            color: #777;
-        }
-
-        main#todolist form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        main#todolist input[type="text"] {
-            margin-bottom: 10px;
-            padding: 5px;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        main#todolist button[type="submit"] {
-            padding: 5px 15px;
-        }
-    </style>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="todos.css">
+    <!-- Bootstrap Animations -->
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Fixed Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <a class="navbar-brand" href="index.html">Productivity Site</a>
+    <!-- Navbar with animation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top animate__animated animate__fadeInDown">
+        <a class="navbar-brand" href="index.html">
+            <img id="logo" src="img/general/logoblack.png" alt="Logo" height="50">
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="notes.html">Notes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pomodoro.html">Pomodoro</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="todos.html">To-Do List</a>
-                </li>
+                <li class="nav-item"><a class="nav-link" href="index.html" data-lang="home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="notes.html" data-lang="notes">Notes</a></li>
+                <li class="nav-item"><a class="nav-link" href="pomodoro.html" data-lang="pomodoro">Pomodoro</a></li>
+                <li class="nav-item"><a class="nav-link active" href="todos.html" data-lang="todos">To-Do List</a></li>
             </ul>
-
-            <!-- Circular Icon Buttons -->
-            <button class="icon-button" id="colorToggle" aria-label="Change Color" onclick="toggleDarkMode()">
-                🎨
-            </button>
-            <button class="icon-button" id="languageToggle" aria-label="Select Language">
-                🌐
-            </button>
-
-            <!-- Menu Icon (Circular with Three Dots) -->
+            <!-- Search Dropdown -->
             <div class="dropdown">
-                <button class="icon-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    ...
-                </button>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    <!-- Content Left Blank -->
+                <button class="icon-button" type="button" id="dropdownSearchButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">🔍</button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownSearchButton">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Search to-do items..." onkeyup="filterTodos()">
+                </div>
+            </div>
+
+            <!-- Color and Language Dropdowns -->
+            <button class="icon-button" id="colorToggle" aria-label="Change Color" onclick="toggleDarkMode()">🎨</button>
+            <div class="dropdown">
+                <button class="icon-button" type="button" id="dropdownLanguageButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">🌐</button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownLanguageButton">
+                    <button class="dropdown-item" onclick="setLanguage('tr')">
+                        <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f1f9-1f1f7.svg" alt="Türkçe Bayrağı" style="width: 20px; height: 20px; margin-right: 8px;"> Türkçe
+                    </button>
+                    <button class="dropdown-item" onclick="setLanguage('en')">
+                        <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f1ec-1f1e7.svg" alt="İngilizce Bayrağı" style="width: 20px; height: 20px; margin-right: 8px;"> English
+                    </button>
+                    <button class="dropdown-item" onclick="setLanguage('de')">
+                        <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f1e9-1f1ea.svg" alt="Almanca Bayrağı" style="width: 20px; height: 20px; margin-right: 8px;"> Deutsch
+                    </button>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content Area -->
-    <div class="container mt-4">
-        <main id="todolist">
-            <h1>
-                Todo List
-                <span>Get things done, one item at a time.</span>
-            </h1>
+    <!-- Main Content with animation -->
+    <main id="todolist" class="container mt-5 pt-5 animate__animated animate__fadeInUp">
+        <h1 id="pageTitle" data-lang="title">To-Do List</h1>
+        <p id="pageContent" data-lang="content">Get things done, one item at a time.</p>
 
-            <template v-if="todo.length">
-                <transition-group name="todolist" tag="ul">
-                    <li v-for="item in todoByStatus" v-bind:class="item.done ? 'done' : ''" v-bind:key="item.id">
-                        <span class="label">{{ item.label }}</span>
-                        <div class="actions">
-                            <button class="btn-picto" type="button" v-on:click="markAsDoneOrUndone(item)" v-bind:aria-label="item.done ? 'Undone' : 'Done'" v-bind:title="item.done ? 'Undone' : 'Done'">
-                                <i aria-hidden="true" class="material-icons">{{ item.done ? 'check_box' : 'check_box_outline_blank' }}</i>
-                            </button>
-                            <button class="btn-picto" type="button" v-on:click="deleteItemFromList(item)" aria-label="Delete" title="Delete">
-                                <i aria-hidden="true" class="material-icons">delete</i>
-                            </button>
-                        </div>
-                    </li>
-                </transition-group>
-                <togglebutton 
-                              label="Move done items at the end?"
-                              name="todosort"
-                              v-on:clicked="clickontoogle" />
-            </template>
-            <p v-else class="emptylist">Your todo list is empty.</p>
+        <!-- Tabs for categories -->
+        <ul class="nav nav-tabs" id="categoryTabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="work-tab" data-toggle="tab" href="#work" role="tab" aria-controls="work" aria-selected="true">Work</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="false">Personal</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="education-tab" data-toggle="tab" href="#education" role="tab" aria-controls="education" aria-selected="false">Education</a>
+            </li>
+        </ul>
 
-            <form name="newform" v-on:submit.prevent="addItem">
-                <label for="newitem">Add to the todo list</label>
-                <input type="text" name="newitem" id="newitem" v-model="newitem">
-                <button type="submit">Add item</button>
-            </form>
-        </main>
-    </div>
+        <!-- Tab content -->
+        <div class="tab-content" id="categoryContent">
+            <div class="tab-pane fade show active" id="work" role="tabpanel" aria-labelledby="work-tab">
+                <ul id="todo-list-work" class="list-group"></ul>
+            </div>
+            <div class="tab-pane fade" id="personal" role="tabpanel" aria-labelledby="personal-tab">
+                <ul id="todo-list-personal" class="list-group"></ul>
+            </div>
+            <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="education-tab">
+                <ul id="todo-list-education" class="list-group"></ul>
+            </div>
+        </div>
 
-    <!-- Bootstrap and General JavaScript Files -->
+        <p class="emptylist" id="empty-message">Your to-do list is empty.</p>
+
+        <!-- Form to add new tasks -->
+        <form id="newform" class="mt-3">
+            <label for="newitem" class="form-label">Add to the to-do list</label>
+            <select id="categorySelect" class="form-control mb-2">
+                <option value="work">Work</option>
+                <option value="personal">Personal</option>
+                <option value="education">Education</option>
+            </select>
+            <input type="text" name="newitem" id="newitem" placeholder="What do you need to do?" class="form-control mb-2">
+            
+            <!-- Priority Slider -->
+            <label for="prioritySlider" class="form-label">Priority Level:</label>
+            <input type="range" class="custom-range" id="prioritySlider" min="1" max="5" step="1" value="3">
+            <p class="text-center mt-1" id="priorityValue">Priority: 3</p>
+            
+            <button type="submit" class="btn btn-primary btn-block">Add Item</button>
+        </form>
+        
+    </main>
+
+    <!-- JavaScript Files -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/todos.js"></script>
-
-    <!-- JavaScript for Dark Mode Toggle -->
-    <script>
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-        }
-    </script>
-    <script src="js/todos.js"></script>
-    
+    <script src="todos.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
-
-
