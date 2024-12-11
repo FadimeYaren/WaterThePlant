@@ -13,6 +13,11 @@ body {
     overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
+body.dark-mode {
+    background-color: #2d2d2d;
+    color: #f7f7f7;
+}
+
 /* Main Div */
 .main-div {
     min-height: 100vh;
@@ -32,6 +37,10 @@ body {
     margin-bottom: 20px;
 }
 
+body.dark-mode #heading {
+    color: #f7f7f7; /* Dark mode heading color */
+}
+
 /* Note Adding Area */
 .addNote {
     max-width: 700px; /* Width limit */
@@ -40,6 +49,11 @@ body {
     border-radius: 20px;
     border: 1px solid #e0e0e0; /* Soft border */
     padding: 30px;
+}
+
+body.dark-mode .addNote {
+    background: linear-gradient(to right, #3b3b3b, #2d2d2d, #444444); /* Darker gradient in dark mode */
+    border: 1px solid #555;
 }
 
 /* Input Area */
@@ -62,6 +76,15 @@ body {
     border-color: #317773;
 }
 
+body.dark-mode #input-title,
+body.dark-mode #input-text,
+body.dark-mode #input-category,
+body.dark-mode #input-tags {
+    background-color: #3b3b3b;
+    border-color: #555;
+    color: #f7f7f7;
+}
+
 /* Button Style */
 #add-btn {
     margin-top: 15px; /* Top margin */
@@ -81,6 +104,15 @@ body {
     transform: scale(1.05); /* Slight scaling on hover */
 }
 
+body.dark-mode #add-btn {
+    background-color: #575757;
+    color: #f7f7f7;
+}
+
+body.dark-mode #add-btn:hover {
+    background-color: #333;
+}
+
 /* Display Notes Area */
 #showNotes {
     display: flex;
@@ -93,7 +125,7 @@ body {
 /* Each Note Style */
 .note {
     position: relative;
-    background-color: #edf3ed; /* Light white */
+    background-color: #ffffff; /* Light white */
     border: 2px solid #e0e0e0;
     border-radius: 20px;
     padding: 15px;
@@ -101,6 +133,7 @@ body {
     width: 300px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease, border 0.2s ease; /* Smooth dragging */
+    color: #000000; /* Default text color (black) */
 }
 
 .note:hover {
@@ -179,4 +212,96 @@ body {
     .addNote {
         padding: 20px; /* Reduce padding for smaller screens */
     }
+}
+
+/* Karanlık Mod Stilleri */
+body.dark-mode .note {
+    background-color: #444; /* Dark background for notes */
+    border-color: #555;
+    color: #f7f7f7; /* White text color in dark mode */
+}
+
+body.dark-mode .note[data-color="default"] {
+    background-color: #2d2d2d; /* Dark default color */
+}
+
+body.dark-mode .note[data-color="blue"] {
+    background-color: #3b3b3b;
+    color: #ffffff;
+}
+
+body.dark-mode .note[data-color="green"] {
+    background-color: #2e8b57;
+    color: #ffffff;
+}
+
+body.dark-mode .note[data-color="yellow"] {
+    background-color: #8b8000;
+    color: #ffffff;
+}
+
+body.dark-mode .note[data-color="purple"] {
+    background-color: #5f4b8b;
+    color: #ffffff;
+}
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Icon Buttons Styles */
+.icon-buttons {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    margin-left: 10px;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.icon-button:hover {
+    background-color: #e2e6ea;
+}
+
+.dropdown .icon-button {
+    padding: 0.5rem;
+}
+
+/* Color Selector */
+.color-selector {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.color-selector button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #ffffff; /* Beyaz kenar */
+    cursor: pointer;
+    transition: transform 0.3s ease, border 0.3s ease;
+}
+
+.color-selector button:hover {
+    transform: scale(1.1); /* Hover durumunda büyüme */
+    border-color: #317773; /* Vurgulama rengi */
+}
+
+/* Karanlık Modda Color Selector */
+body.dark-mode .color-selector button {
+    border: 2px solid #222; /* Karanlık kenar */
+}
+
+body.dark-mode .color-selector button:hover {
+    border-color: #1de9b6; /* Karanlık modda hover kenar rengi */
 }

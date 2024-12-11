@@ -7,7 +7,7 @@ const displayNotes = document.getElementById('showNotes');
 const categoryInput = document.getElementById('input-category');
 const tagsInput = document.getElementById('input-tags');
 
-let selectedColor = "#ffffff"; // Default color
+let selectedColor = null; // Başlangıçta seçilen renk yok
 
 // Initialize local storage
 initializeLocalStorage();
@@ -22,7 +22,7 @@ function initializeLocalStorage() {
 // Add a new note when the button is clicked
 function addNoteOnClick() {
     console.log("Click detected");
-    
+
     const title = titleInput.value.trim();
     const text = textInput.value.trim();
     const category = categoryInput.value.trim();
@@ -38,10 +38,17 @@ function addNoteOnClick() {
         return;
     }
 
+// Varsayılan renk belirleme
+    const defaultColor = document.body.classList.contains('dark-mode') 
+    ? '#1F2937' // Karanlık mod için daha koyu bir gri
+    : '#9CA3AF'; // Açık mod için orta gri
+
+    const noteColor = selectedColor || defaultColor; // Renk seçilmemişse varsayılanı kullan
+
     const noteObj = {
         Title: title,
         Text: text,
-        Color: selectedColor,
+        Color: noteColor, // Seçilen ya da varsayılan rengi kaydet
         Category: category,
         Tags: tags,
         Completed: false
@@ -51,12 +58,12 @@ function addNoteOnClick() {
     savedNotes.push(noteObj);
     localStorage.setItem('notes', JSON.stringify(savedNotes));
 
-    // Clear inputs
+    // Alanları temizle
     titleInput.value = "";
     textInput.value = "";
     categoryInput.value = "";
     tagsInput.value = "";
-    selectedColor = "#ffffff"; // Reset to default color
+    selectedColor = null; // Seçimi sıfırla
 
     displayNotesList();
 }
@@ -64,13 +71,12 @@ function addNoteOnClick() {
 // Display saved notes
 function displayNotesList() {
     const savedNotes = JSON.parse(localStorage.getItem('notes'));
-    displayNotes.innerHTML = ""; // Clear previous notes
+    displayNotes.innerHTML = ""; // Önceki notları temizle
 
     savedNotes.forEach((note, index) => {
         const noteDiv = document.createElement('div');
         noteDiv.className = 'note';
         noteDiv.style.backgroundColor = note.Color;
-        noteDiv.draggable = true;
         noteDiv.dataset.index = index;
 
         noteDiv.innerHTML = `
@@ -85,71 +91,21 @@ function displayNotesList() {
             </div>
         `;
 
-        // Add drag events
-        noteDiv.addEventListener('dragstart', handleDragStart);
-        noteDiv.addEventListener('dragover', handleDragOver);
-        noteDiv.addEventListener('dragleave', handleDragLeave);
-        noteDiv.addEventListener('drop', handleDrop);
-        noteDiv.addEventListener('dragend', handleDragEnd);
-
         displayNotes.appendChild(noteDiv);
     });
-}
-
-// Drag and Drop Handlers
-let draggedItem = null;
-
-function handleDragStart(e) {
-    draggedItem = this;
-    this.style.opacity = '0.5'; // Make the item semi-transparent
-}
-
-function handleDragOver(e) {
-    e.preventDefault();
-    const draggingOver = e.target.closest('.note');
-    if (draggingOver && draggingOver !== draggedItem) {
-        draggingOver.style.border = "2px dashed #317773"; // Highlight target
-    }
-}
-
-function handleDragLeave(e) {
-    const draggingOver = e.target.closest('.note');
-    if (draggingOver) {
-        draggingOver.style.border = "none"; // Remove highlight
-    }
-}
-
-function handleDrop(e) {
-    e.preventDefault();
-    const draggingOver = e.target.closest('.note');
-    if (draggingOver && draggingOver !== draggedItem) {
-        const draggingIndex = parseInt(draggedItem.dataset.index);
-        const overIndex = parseInt(draggingOver.dataset.index);
-        const savedNotes = JSON.parse(localStorage.getItem('notes'));
-
-        // Swap the notes in the array
-        [savedNotes[draggingIndex], savedNotes[overIndex]] = [savedNotes[overIndex], savedNotes[draggingIndex]];
-        localStorage.setItem('notes', JSON.stringify(savedNotes));
-        displayNotesList();
-    }
-}
-
-function handleDragEnd() {
-    this.style.opacity = '1'; // Reset opacity
-    document.querySelectorAll('.note').forEach(note => note.style.border = "none"); // Remove highlight
 }
 
 // Delete the note when the X is clicked
 function deleteNote(index) {
     const savedNotes = JSON.parse(localStorage.getItem('notes'));
-    savedNotes.splice(index, 1); // Remove note
+    savedNotes.splice(index, 1); // Notu sil
     localStorage.setItem('notes', JSON.stringify(savedNotes));
-    displayNotesList(); // Re-render notes
+    displayNotesList(); // Notları yeniden göster
 }
 
 // Set note color
 function setNoteColor(color) {
-    selectedColor = color;
+    selectedColor = color; // Seçilen rengi kaydet
 }
 
 // Execute addNoteOnClick when the button is clicked
@@ -157,3 +113,24 @@ addBtn.addEventListener('click', addNoteOnClick);
 
 // Show notes on page load
 displayNotesList();
+
+// Karanlık mod toggling işlemi
+const darkModeToggle = document.getElementById('dark-mode-toggle');
+
+darkModeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+
+    // LocalStorage'a karanlık mod tercihini kaydet
+    if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('darkMode', 'enabled');
+    } else {
+        localStorage.setItem('darkMode', 'disabled');
+    }
+});
+
+// Karanlık mod tercihini sayfa yüklenirken kontrol et
+if (localStorage.getItem('darkMode') === 'enabled') {
+    document.body.classList.add('dark-mode');
+} else {
+    document.body.classList.remove('dark-mode');
+}
