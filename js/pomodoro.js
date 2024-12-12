@@ -8,39 +8,32 @@ let isBreak = false;
 // Mod Seç
 function selectMode(selectedMode) {
     mode = selectedMode;
-    resetTimer();
+    resetTimer(); // Zamanlayıcıyı resetle
 
-    if (mode === 'pomodoro') {
-        // Kullanıcıdan alınan girişlerle pomodoro süresi ve mola süresi ayarlanabilir
-        const pomodoroCount = parseInt(prompt("Kaç Pomodoro yapmak istiyorsunuz? (1-∞)", 1));
-        const pomodoroDuration = parseInt(prompt("Her Pomodoro süresi kaç dakika? (En az 10)", 25));
-        const breakDuration = parseInt(prompt("Mola süresi kaç dakika? (Pomodoro süresinden uzun olamaz)", 5));
-
-        if (pomodoroCount < 1 || pomodoroDuration < 10 || breakDuration > pomodoroDuration) {
-            alert("Geçersiz değerler girdiniz. Lütfen tekrar deneyin.");
-            return;
-        }
-
-        minutes = pomodoroDuration;
-        seconds = 0;
-        pomodoroSettings = { pomodoroCount, pomodoroDuration, breakDuration }; // Ayarları kaydet
-    } else if (mode === 'countdown') {
-        // Kullanıcıdan süre alınabilir
-        const countdownDuration = parseInt(prompt("Geri sayım süresi kaç dakika olsun? (1-∞)", 10));
-        if (countdownDuration < 1) {
-            alert("Geçersiz süre girdiniz.");
-            return;
-        }
-
-        minutes = countdownDuration;
-        seconds = 0;
-    } else if (mode === 'stopwatch') {
-        minutes = 0;
-        seconds = 0;
+    switch (mode) {
+        case 'pomodoro':
+            if (!pomodoroSettings) {  // Eğer ayarlar daha önce yapılmamışsa varsayılan değerleri kullan
+                pomodoroSettings = {
+                    pomodoroCount: 4,
+                    pomodoroDuration: 25,
+                    breakDuration: 5
+                };
+            }
+            minutes = pomodoroSettings.pomodoroDuration;
+            seconds = 0;
+            break;
+        case 'countdown':
+            minutes = 30;  // Varsayılan geri sayım süresi
+            seconds = 0;
+            break;
+        case 'stopwatch':
+            minutes = 0;
+            seconds = 0;
+            break;
     }
-
     updateDisplay();
 }
+
 
 function updateDisplay() {
     document.getElementById("timer-display").textContent =
@@ -228,20 +221,12 @@ function startProgress() {
 }
 
 function toggleSettings() {
-    const rightSection = document.getElementById('right-section');
-    const leftSection = document.getElementById('left-section');
-    const toggleButton = document.getElementById('toggle-settings');
+    const pomodoroPanel = document.getElementById("pomodoro-p-panel");
 
-    if (rightSection.classList.contains('visible')) {
-        // Ayar panelini kapat
-        rightSection.classList.remove('visible');
-        toggleButton.textContent = ">";
-        leftSection.style.flex = "1"; // Sol bölümü ortaya al
+    if (pomodoroPanel.classList.contains("right-section-visible")) {
+        pomodoroPanel.classList.remove("right-section-visible");
     } else {
-        // Ayar panelini aç
-        rightSection.classList.add('visible');
-        toggleButton.textContent = "<";
-        leftSection.style.flex = "2"; // Sol bölümü küçült
+        pomodoroPanel.classList.add("right-section-visible");
     }
 }
 
@@ -296,3 +281,220 @@ function startProgress() {
 
 startProgress();
 
+
+//P-PANEL
+
+function activatePanel(panelId) {
+    const panels = document.querySelectorAll('.p-panel');
+
+    panels.forEach(panel => {
+        if (panel.id === panelId) {
+            // Tıklanan panel aktif hale gelir
+            panel.classList.add('active');
+        } else {
+            // Diğer panellerin aktifliği kaldırılır
+            panel.classList.remove('active');
+        }
+    });
+}
+
+
+
+// MUSIC PANEL
+
+// Local Storage'dan müzik listesini yüklemek için fonksiyon
+function loadPlaylist() {
+    const storedPlaylist = localStorage.getItem('musicPlaylist');
+    if (storedPlaylist) {
+        return JSON.parse(storedPlaylist);
+    } else {
+        // Local storage boşsa, varsayılan şarkılar ekleyin
+        const defaultPlaylist = [
+            { title: "Default Song 1", url: "https://www.youtube.com/watch?v=example1" },
+            { title: "Default Song 2", url: "https://www.youtube.com/watch?v=example2" }
+        ];
+        localStorage.setItem('musicPlaylist', JSON.stringify(defaultPlaylist));
+        return defaultPlaylist;
+    }
+}
+
+// Müzik listesini Local Storage'a kaydetmek için fonksiyon
+function savePlaylist(playlist) {
+    localStorage.setItem('musicPlaylist', JSON.stringify(playlist));
+}
+
+// Playlist'i güncellemek için fonksiyonlar
+function addSongToPlaylist(name, url) {
+    const playlist = loadPlaylist();
+    playlist.push({ title: name, url: url });
+    savePlaylist(playlist);
+    updatePlaylistDisplay();
+}
+
+function deleteSongFromPlaylist(index) {
+    const playlist = loadPlaylist();
+    playlist.splice(index, 1);
+    savePlaylist(playlist);
+    updatePlaylistDisplay();
+}
+
+// Playlist'i HTML'de göstermek için fonksiyon
+function updatePlaylistDisplay() {
+    const playlist = loadPlaylist();
+    const playlistElement = document.getElementById('playlist');
+    playlistElement.innerHTML = '';  // Listeyi temizle
+    playlist.forEach((item, index) => {
+        const listItem = document.createElement('li');
+        listItem.className = 'playlist-item'; // Stil için sınıf ekle
+
+        const titleSpan = document.createElement('span');
+        titleSpan.textContent = item.title;
+        titleSpan.style.paddingRight = '10px'; // Sağa padding ekle
+
+        const copyLink = document.createElement('i');
+        copyLink.className = 'fas fa-copy'; // Kopyalama ikonu
+        copyLink.onclick = () => copyToClipboard(item.url);
+
+        const openLink = document.createElement('i');
+        openLink.className = 'fas fa-external-link-alt'; // Yeni sekme ikonu
+        openLink.onclick = () => openInNewTab(item.url);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+        deleteButton.className = 'delete-btn';
+        deleteButton.onclick = () => deleteSongFromPlaylist(index);
+
+        listItem.appendChild(titleSpan);
+        listItem.appendChild(copyLink);
+        listItem.appendChild(openLink);
+        listItem.appendChild(deleteButton);
+
+        playlistElement.appendChild(listItem);
+    });
+}
+
+document.getElementById('addMusicForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const musicName = document.getElementById('musicName').value;
+    const youtubeLink = document.getElementById('youtubeLink').value;
+    addSongToPlaylist(musicName, youtubeLink);
+    document.getElementById('musicName').value = '';
+    document.getElementById('youtubeLink').value = '';
+});
+
+// Linki kopyalamak için fonksiyon
+function copyToClipboard(url) {
+    navigator.clipboard.writeText(url).then(() => {
+        alert("Link copied to clipboard!");
+    }, () => {
+        alert("Failed to copy link.");
+    });
+}
+
+// Linki yeni sekmede açmak için fonksiyon
+function openInNewTab(url) {
+    window.open(url, '_blank').focus();
+}
+
+document.getElementById('add-music-button').addEventListener('click', function() {
+    document.getElementById('music-controls-section').style.display = 'none';
+    document.getElementById('add-music-section').style.display = 'block';
+});
+
+document.getElementById('show-playlist-button').addEventListener('click', function() {
+    document.getElementById('music-controls-section').style.display = 'block';
+    document.getElementById('add-music-section').style.display = 'none';
+});
+
+// Sayfa yüklendiğinde playlist'i göster
+document.addEventListener('DOMContentLoaded', updatePlaylistDisplay);
+
+
+
+
+
+
+// JSON objesine dönüştürmek ve bir dosya olarak indirmek
+// Örnek veri yapısı
+let data = {
+    playlist: playlist,  // Daha önce oluşturduğunuz playlist array
+    timers: {
+        pomodoro: {
+            sessions: 4,
+            length: 25,
+            break: 5
+        },
+        countdown: {
+            duration: 15
+        },
+        stopwatch: {
+            elapsed: 123 // Örnek olarak geçen süre (saniye)
+        }
+    },
+    settings: {
+        volume: 75,
+        darkMode: true
+    }
+};
+
+function downloadData() {
+    const jsonStr = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'pomodoro_data.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// İndirme fonksiyonunu tetiklemek için buton oluşturma
+document.getElementById('download-data-button').addEventListener('click', downloadData);
+
+
+
+
+
+
+
+// history and data panel
+
+// sürükle bırak
+
+// Sürükle ve bırak için event listener'lar
+let dropArea = document.getElementById('drop-area');
+
+dropArea.addEventListener('dragover', (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'copy';
+});
+
+dropArea.addEventListener('drop', (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    const files = event.dataTransfer.files;
+    processFile(files[0]);
+});
+
+document.getElementById('drop-area').addEventListener('click', () => {
+    document.getElementById('file-input').click();
+});
+
+document.getElementById('file-input').addEventListener('change', function() {
+    if (this.files.length > 0) {
+        processFile(this.files[0]);
+    }
+});
+
+function processFile(file) {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        const data = JSON.parse(event.target.result);
+        console.log('Data loaded:', data);
+        // Burada verileri işleyip uygulamaya yükleyebilirsiniz
+    };
+    reader.readAsText(file);
+}
