@@ -5,7 +5,7 @@ body, html {
     height: 100%;
     width: 100%;
     display: flex;
-    flex-direction: column; /* Navbar ve panellerin alt alta yerleşmesi için */
+    flex-direction: column; 
     background-color: #f4f4f4;
     font-family: Arial, sans-serif;
     overflow: hidden;
@@ -28,7 +28,7 @@ body, html {
 
 /* ----DARK MODE AND SHOOTING STARS---- */
 .night {
-    display: none; /* Başlangıçta görünmez */
+    display: none; 
 }
 
 body.dark-mode .night {
@@ -38,7 +38,7 @@ body.dark-mode .night {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0; /* İçeriklerin arkasında kalır */
+    z-index: 0; 
     overflow: hidden;
 }
 
@@ -78,11 +78,11 @@ body.dark-mode .night {
 /* ----PANELS---- */
 /* PANELS GENERAL FEATURES */
 #panel-container {
-    display: flex; /* Panelleri yan yana dizmek için */
+    display: flex; 
     width: 90%;
     max-width: 1200px;
-    height: 70vh; /* Yüksekliği biraz küçült */
-    margin: auto; /* Ortalamak için */
+    height: 70vh; 
+    margin: auto; 
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -90,7 +90,7 @@ body.dark-mode .night {
     gap: 10px;
 }
 
-/* Paneller */
+/* Panels */
 .p-panel {
     flex: 1;
     display: flex;
@@ -106,48 +106,74 @@ body.dark-mode .night {
     border-radius: 10px;
 }
 
-/* Kapalı Panel Durumu (Varsayılan Görünüm) */
+/* Closed panel  */
 .p-panel::before {
-    content: attr(data-title); /* Her panel için özel metin */
+    content: attr(data-title); 
     font-size: 1.2rem;
     font-weight: bold;
-    color: #fff; /* Kapalı panel yazı rengi */
+    color: #fff; 
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    z-index: 1; /* Yazının içerikten önce gelmesi için */
+    z-index: 1; 
     opacity: 1;
     visibility: visible;
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
 
-/* Aktif Panel */
+/* Active Panel */
 .p-panel.active {
-    flex: 23; /* Tıklanan panel genişler */
+    flex: 23; 
     background-color: rgba(206, 206, 206, 0.059);
     z-index: 2;
-    backdrop-filter: blur(10px); /* Arka planı buğulu yapar */
-    -webkit-backdrop-filter: blur(10px); /* Safari desteği için */
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); 
 }
 
-/* Kapalı Panelde Yazıyı Görünür Tut */
 .p-panel:not(.active)::before {
     opacity: 1;
     visibility: visible;
 }
 
-/* Aktif Panelde Yazıyı Gizle */
 .p-panel.active::before {
     opacity: 0;
     visibility: hidden;
 }
 
-/* Hover efekti diğer paneller için */
+/* Hover for other panels */
 .p-panel:not(.active):hover {
     background-color: rgba(101, 101, 101, 0.338);
 }
+
+
+/* Panel tags */
+.panel-label {
+    position: absolute;
+    bottom: 250px;
+    left: 50%; 
+    transform: translateX(-50%) rotate(-90deg); 
+    font-size: 1rem;
+    font-weight: bold;
+    color: gray; 
+    opacity: 0.7; 
+    text-transform: uppercase; 
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 2; 
+}
+
+.p-panel:not(.active) .panel-label {
+    opacity: 1;
+    visibility: visible;
+}
+
+.p-panel.active .panel-label {
+    opacity: 0; 
+    visibility: hidden;
+}
+
 
 /* --------------------------------------------  */
 
@@ -156,55 +182,55 @@ body.dark-mode .night {
 /* ----PANEL 1 : MUSIC PANEL---- */
 .music-content {
     display: flex;
-    flex-direction: row; /* Yan yana bölümler */
+    flex-direction: row;
     width: 100%;
     height: 100%;
 }
 
-/* Kapalı Panel İçeriğini Gizle */
+/* hide content for closed panel */
 .p-panel:not(.active) .music-content {
     opacity: 0;
     visibility: hidden;
-    pointer-events: none; /* Kullanıcı etkileşimlerini devre dışı bırak */
+    pointer-events: none;
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
 
-/* Aktif Panel İçeriğini Göster */
+/* show content for active panel */
 .p-panel.active .music-content {
     opacity: 1;
     visibility: visible;
-    pointer-events: auto; /* Kullanıcı etkileşimlerini etkinleştir */
+    pointer-events: auto; 
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
 
-/* Panel Bölümleri */
+/* Panel sections */
 .music-left-section {
-    flex: 1;  /* Alanın %20'sini kaplar gibi ayarlayabilirsiniz */
+    flex: 1; 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    height: 100%; /* Tam yükseklik */
+    height: 100%;
     padding: 10px;
-    background-color: transparent; /* Görsel ayırma için arka plan rengi */
-    border-right: 2px solid #ccc;  /* Sağ tarafa bir çizgi ekleme */
+    background-color: transparent; 
+    border-right: 2px solid #ccc; 
 }
 
 .music-right-section {
-    flex: 39;  /* Sağ bölüm daha geniş bir alana yayılır */
+    flex: 39; 
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: 5px; /* Padding artırıldı */
+    padding: 5px; 
 }
 
-/* Sağ Üst Bölüm Stilleri */
+/* right top section Stills */
 .music-right-top-section {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%; /* Panelin tam genişliğini kullan */
+    width: 100%;
     background-color: transparent; 
     color: white;
     border-bottom: 2px solid #ccc;
@@ -214,25 +240,32 @@ body.dark-mode .night {
 .music-name-section, .music-rhythm-section, .music-buttons-section, .music-progress-bar-section{
     flex:1;
     display: flex;
-    align-items: center; /* Yatayda merkezleme */
-    justify-content: center; /* Dikeyde merkezleme */
+    align-items: center; 
+    justify-content: center;
     width: 100%;
     min-height: 30px;
 }
 
 
+.music-name-section{
+    color: gray; 
+    font-size: 24px; 
+    text-align: center; 
+    font-weight: normal;
+}
+
 .music-progress-bar-progress-section{
     flex:4;
     display: flex;
-    align-items: center; /* Yatayda merkezleme */
-    justify-content: center; /* Dikeyde merkezleme */
+    align-items: center; 
+    justify-content: center; 
 }
 
 .music-progress-bar-sound-section{
     flex:1;
     display: flex;
-    align-items: center; /* Yatayda merkezleme */
-    justify-content: center; /* Dikeyde merkezleme */
+    align-items: center; 
+    justify-content: center; 
 }
 
 
@@ -241,8 +274,8 @@ body.dark-mode .night {
 
 
 .control-btn {
-    flex: none; /* Flex büyümesini engelle, boyutlar sabit kalsın */
-    padding: 8px 30px; /* Yeterli tıklama alanı sağla */
+    flex: none; 
+    padding: 8px 30px; 
     font-size: 24px;
     background-color: transparent;
     border: none;
@@ -250,51 +283,54 @@ body.dark-mode .night {
 
 
 
-/* Dark mode özellikleri */
+/* Dark mode features*/
 body.dark-mode .control-btn {
-    color: white; /* Dark mode aktifken arka planı beyaz yap */
+    color: white; 
 }
 
 body.dark-mode .control-btn:hover {
-    color: #e0e0e0; /* Dark mode'da mouse üzerine geldiğinde arka plan rengini açık gri yap */
+    color: #e0e0e0; 
 }
 
 
 .progress-bar {
-    flex-grow: 1; /* İlerleme çubuğu kalan tüm alanı doldurur */
+    flex-grow: 1;
     height: 6px;
     background-color: #666;
     position: relative;
     cursor: pointer;
-    min-width: 100px; /* Minimum genişlik */
+    min-width: 100px; 
+    margin: 0 10px; 
 }
 
 .progress {
     height: 100%;
     background-color: #137661;
     position: absolute;
-    width: 50%; /* İlerleme çubuğu yüzdesi, dinamik olabilir */
+    width: 0; 
 }
 
 .volume-slider {
-    flex: 1; /* Ses kaydırıcısının genişliği esnek */
-    min-width: 20px; /* Minimum genişlik */
+    flex: 1; 
+    min-width: 20px;
 }
 
 .time {
-    width: 50px; /* Zaman etiketlerinin genişliği sabit */
+    width: 50px; 
     text-align: center;
 }
 
 .volume-controls i {
-    padding: 0 10px; /* İkonlar için padding */
+    padding: 0 10px;
 }
 
-/* Bootstrap Ikonları */
+/* Bootstrap Icons */
 .bi {
     font-size: 24px;
     color: #555;
 }
+
+
 
 
 /* Playlist Container */
@@ -302,16 +338,16 @@ body.dark-mode .control-btn:hover {
     flex: 1;
     display: flex;
     flex-direction: column;
-    overflow-y: auto; /* Liste uzun olduğunda kaydırma çubuğu ekle */
+    overflow-y: auto;
     padding: 20px;
-    background-color: transparent; /* Hafif gri arka plan */
-    border-top: 1px solid #ccc; /* Bölücü çizgi */
-    height: 370px; /* Sabit yükseklik veya % değeri */
+    background-color: transparent; 
+    border-top: 1px solid #ccc;
+    height: 370px; 
 }
 
 /* Playlist List Items */
 #playlist {
-    list-style: none; /* Liste işaretlerini kaldır */
+    list-style: none; 
     margin: 0;
     padding: 0;
 }
@@ -326,23 +362,23 @@ body.dark-mode .control-btn:hover {
     background-color: transparent;
     border: 1px solid #e1e1e1;
     border-radius: 5px;
-    position: relative; /* Pozisyonlama için temel */
-    overflow: hidden; /* İç çerçeve taşmasını engeller */
+    position: relative; 
+    overflow: hidden; 
 }
 
 #playlist li::before {
-    content: ''; /* İç çerçeve için boş içerik */
-    position: absolute; /* Kutucuğun pozisyonuna göre konumlandırma */
-    top: 1px; left: 1px; right: 1px; bottom: 1px; /* İçe doğru 2px */
-    border: 2px solid #ccc; /* Gri renkli çerçeve */
-    border-radius: 4px; /* Hafif yuvarlatılmış köşeler */
-    opacity: 0; /* Varsayılan olarak görünmez */
-    transition: opacity 0.3s; /* Yumuşak geçiş efekti */
+    content: ''; 
+    position: absolute; 
+    top: 1px; left: 1px; right: 1px; bottom: 1px; 
+    border: 2px solid #ccc;
+    border-radius: 4px; 
+    opacity: 0;
+    transition: opacity 0.3s; 
     z-index: -1;
 }
 
 #playlist li:hover::before {
-    opacity: 1; /* Hover durumunda çerçeve görünür olur */
+    opacity: 1; 
 }
 
 
@@ -351,7 +387,7 @@ body.dark-mode .control-btn:hover {
 
 #playlist li span {
     flex-grow: 1;
-    margin-right: 10px; /* Sağ taraftaki buton ve ikonlar arasında boşluk bırak */
+    margin-right: 10px; 
     color: gray;
 }
 
@@ -372,14 +408,14 @@ body.dark-mode .control-btn:hover {
 
 /* Playlist Link */
 #playlist a {
-    text-decoration: none; /* Alt çizgiyi kaldır */
-    color: #333; /* Metin rengi */
-    font-weight: bold; /* Yazı tipi kalınlığı */
+    text-decoration: none; 
+    color: #333; 
+    font-weight: bold; 
 }
 
 /* Play Button */
 #playlist a:hover {
-    color: #007BFF; /* Mavi renk hover efekti */
+    color: #007BFF; 
 }
 
 /* Delete Button */
@@ -387,7 +423,7 @@ body.dark-mode .control-btn:hover {
     color: gray;
     border: none;
     border-radius: 3px;
-    cursor: pointer; /* İmleç */
+    cursor: pointer; 
     background-color: transparent;
 }
 
@@ -397,50 +433,62 @@ body.dark-mode .control-btn:hover {
 }
 
 
+/* YOUTUBE IFRAME API */
+
+#youtube-player {
+    display: none;
+    margin: auto;
+    width: 640px; 
+    height: 390px; 
+    background-color: black; 
+}
+
+
+
+
 
 
 /* music add */
 #add-music-section {
-    display: flex; /* Flexbox modelini kullan */
-    flex-direction: column; /* Elemanların dikey dizilimi */
-    align-items: center; /* Dikey olarak merkeze hizala */
-    justify-content: center; /* Yatay olarak merkeze hizala */
-    padding: 20%; /* İç boşluk */
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 20%;
 }
 
 
 #addMusicForm {
-    width: 100%; /* Form genişliği */
+    width: 100%; 
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Elemanlar arasında boşluk */
+    gap: 20px; 
 }
 
 #addMusicForm input[type="text"],
 #addMusicForm input[type="url"] {
     padding: 10px;
-    border: 2px solid #ccc; /* Çerçeve */
-    border-radius: 5px; /* Köşeleri yuvarlak */
-    font-size: 16px; /* Yazı boyutu */
+    border: 2px solid #ccc; 
+    border-radius: 5px;
+    font-size: 16px; 
     min-width: 100px; 
 }
 
 #addMusicForm button {
     padding: 10px;
-    background-color: #137661; /* Yeşil arka plan */
+    background-color: #137661; 
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
-    cursor: pointer; /* İmleç */
-    transition: background-color 0.3s; /* Renk değişim animasyonu */
+    cursor: pointer;
+    transition: background-color 0.3s; 
     min-width: 100px; 
 }
 
 #addMusicForm button:hover {
-    background-color: #137661; /* Hover durumunda arka plan rengi */
+    background-color: #137661; 
 }
-
 
 
 
@@ -454,32 +502,92 @@ body.dark-mode .control-btn:hover {
 
 /* ----PANEL 2 : HISTORY PANEL---- */
 
-.history-content {
+/* History Container */
+#history-container {
     display: flex;
-    flex-direction: row; /* Yan yana bölümler */
-    width: 100%;
-    height: 100%;
+    flex-direction: column;
+    align-items: center; 
+    padding: 15px;
+    gap: 15px;
+    background-color: transparent;
+    height: 100%; 
+    width: 100%; 
+    max-height: 500px; 
+    overflow-y: auto; 
+    margin: 0 auto; 
+    box-sizing: border-box;
+    scrollbar-width: thin; 
+    scrollbar-color: gray transparent;
 }
 
-
-/* Drop area */
-#drop-area {
-    border: 2px dashed #ccc;
-    border-radius: 5px;
-    padding: 20px;
+/* history  */
+.history-date {
     text-align: center;
-    background: #f9f9f9;
-    cursor: pointer;
+    font-size: 14px;
+    color: gray;
+    font-weight: bold;
+    margin: 10px 0;
+    position: relative;
+    width: 100%;
 }
 
-#drop-area:hover {
-    background-color: #e8e8e8;  
+.history-date::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 50px;
+    height: 1px;
+    background-color: gray;
+    transform: translateX(-50%);
 }
 
-p {
-    margin: 0;
-    font-size: 16px;
-    color: #666;
+.history-message {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%; 
+    max-width: 100%; 
+    padding: 15px 100px; 
+    background: transparent;
+    color: gray;
+    border: 1px solid gray;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    word-wrap: break-word; 
+}
+
+/* time Stil */
+.history-message-time {
+    padding-left: 10px; 
+    padding-right: 10px; 
+    font-size: 14px;
+    color: gray; 
+    text-align: center; 
+    min-width: 50px;
+}
+
+
+
+/* Hover */
+.history-message:hover {
+    background-color: rgba(211, 211, 211, 0.2);
+}
+
+/* Scrollbar Still for safari) */
+#history-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+#history-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#history-container::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
 }
 
 
@@ -493,7 +601,7 @@ p {
 
 .pomodoro-content {
     display: flex;
-    flex-direction: row; /* Yan yana bölümler */
+    flex-direction: row;
     width: 100%;
     height: 100%;
 }
@@ -501,56 +609,56 @@ p {
 
 #pomodoro-p-panel {
     display: flex;
-    flex-direction: row; /* Yan yana hizalama */
+    flex-direction: row;
     background-color: rgba(206, 206, 206, 0.059);
     border: 1px solid #383838;
     border-radius: 10px;
     text-align: center;
-    height: 100%; /* Panelin tam yüksekliği */
-    width: 100%; /* Panelin tam genişliği!!!!!!!!!! */
+    height: 100%; 
+    width: 100%; 
     overflow: hidden;
     cursor: pointer;
 }
 
-/* Panel Bölümleri */
+/* Panel sect*/
 .pomodoro-mode-section {
-    flex: 1; /* Daha küçük bir alan verin */
+    flex: 1; 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: auto; /* Otomatik yükseklik */
+    height: auto; 
     padding: 10px;
     background-color: transparent;
     border-right: 2px solid #ccc;
 }
 
-/* Countdown ve Stopwatch Butonları için Yuvarlak Stil */
+/* Countdown ve Stopwatch Buttons circular still */
 .pomodoro-mode-section button {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px; /* Buton genişliği */
-    height: 40px; /* Buton yüksekliği */
-    border-radius: 50%; /* Yuvarlak görünüm */
-    border: 2px solid #137661; /* Çerçeve rengi */
-    background-color: #fff; /* Arkaplan rengi */
-    font-size: 15px; /* Yazı veya simge boyutu */
-    color: #137661; /* Yazı veya simge rengi */
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    border: 2px solid #137661; 
+    background-color: #fff; 
+    font-size: 15px;
+    color: #137661; 
     cursor: pointer;
-    transition: all 0.3s ease; /* Hover animasyonu */
+    transition: all 0.3s ease; 
     border-right: 2px solid #ccc;
 }
 
-/* Hover Efekti */
+/* Hover  */
 .pomodoro-mode-section button:hover {
-    background-color: #137661; /* Hover durumunda arkaplan rengi */
-    color: #fff; /* Hover durumunda yazı/simge rengi */
+    background-color: #137661; 
+    color: #fff;
 }
 
-/* Countdown ve Stopwatch İçin Simge Stil Ayarı */
+/* for Countdown ve Stopwatch */
 .pomodoro-mode-section button i {
-    font-size: 15px; /* Simge boyutu */
+    font-size: 15px; 
 }
 
 
@@ -561,114 +669,156 @@ p {
 .pomodoro-mode-pomodoro-section{
     flex:1;
     display: flex;
-    align-items: center; /* Yatayda merkezleme */
-    justify-content: center; /* Dikeyde merkezleme */
+    align-items: center; 
+    justify-content: center; 
 }
 
 .pomodoro-mode-countdown-section{
     flex:1;
     display: flex;
-    align-items: center; /* Yatayda merkezleme */
-    justify-content: center; /* Dikeyde merkezleme */
+    align-items: center; 
+    justify-content: center; 
 }
 
 .pomodoro-mode-stopwatch-section{
     flex:1;
     display: flex;
-    align-items: center; /* Yatayda merkezleme */
-    justify-content: center; /* Dikeyde merkezleme */
+    align-items: center; 
+    justify-content: center; 
 }
 
 
 .pomodoro-content-section {
-    flex: 39; /* Daha geniş alan */
+    flex: 39; 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: auto; /* Otomatik yükseklik */
+    height: auto; 
     background-color: transparent;
 }
 
 
 
 
-/* Hover Efekti */
+/* Hover  */
 #pomodoro-p-panel:not(.active):hover {
-    background-color: rgba(101, 101, 101, 0.338); /* Hover sırasında arka plan değişir */
-    transform: scale(1.02); /* Hafif büyüme efekti */
+    background-color: rgba(101, 101, 101, 0.338); 
+    transform: scale(1.02); 
 }
 
-/* Sol Bölüm (Bitki ve Zamanlayıcı) */
+/* (plant and timer) */
 #pomodoro-p-panel #left-section {
-    flex: 1; /* Sol taraf genişliği */
+    flex: 1; 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%; /* Sol panelin yüksekliğini tam yapar */
-    transition: transform 0.5s ease, justify-content 0.5s ease; /* Ayar paneli açıldığında konum kayması */
+    height: 100%; 
+    transition: transform 0.5s ease, justify-content 0.5s ease; 
     position: relative;
 }
 
-/* Sol Panel (Kayma Efekti) */
 #pomodoro-p-panel.right-section-visible #left-section {
-    transform: translateX(-50%); /* Sol taraf sağ panel açıldığında biraz sola kayar */
-    justify-content: flex-start; /* Sol panel daha sola yaklaşır */
+    transform: translateX(-60%); 
+    align-items: center; 
+    justify-content: center; 
 }
 
-/* Bitki Dairesi */
+
 #pomodoro-p-panel #circular-timer {
     width: 300px;
     height: 300px;
-    border-radius: 50%; /* Daire şekli */
+    border-radius: 50%;
     background-color: rgba(224, 255, 224, 0.3);
-    margin: 0 auto; /* Ortalamak için */
+    margin: 0 auto; 
     display: flex;
-    align-items: center; /* İçerikleri yatayda ortalar */
-    justify-content: center; /* İçerikleri dikeyde ortalar */
-    overflow: hidden; /* Görsel taşmalarını gizler */
+    align-items: center; 
+    justify-content: center; 
+    overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Bitki Görseli */
+/* plant stage */
 #pomodoro-p-panel #plant-stage {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Görselin orantılı şekilde yerleşmesini sağlar */
+    object-fit: cover;
 }
 
-/* Sağ Panel (Ayarlar) */
+
+#timer-display {
+    font-size: 40px; 
+    color: gray; 
+    font-weight: bold; 
+    text-align: center; 
+    margin-top: 10px; 
+}
+
+
+
+#start-button,
+#stop-button {
+    margin-top: 20px; 
+    padding: 10px 20px; 
+    background-color: #137661; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#start-button:hover,
+#stop-button:hover {
+    background-color: #0d574b; 
+}
+
+/* Align the buttons and other content in the left section */
+#left-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; 
+}
+
+
+
+
+
+/* settings */
 #pomodoro-p-panel #right-section {
-    flex: 0; /* Başlangıçta genişlik yok */
+    flex: 0; 
     position: absolute;
-    top: 50%; /* Panelin üstten ortalanması */
-    right: 0; /* Sağdan hizalanması */
-    transform: translateY(-50%); /* Dikey olarak ortalamak için */
-    width: 0; /* Başlangıçta genişlik yok */
-    height: 80%; /* Sağ panelin yüksekliği */
-    border-left: 1px solid #ccc; /* Ayrım için çizgi */
-    transition: all 0.5s ease; /* Geçiş animasyonu */
-    opacity: 0; /* Görünmez */
-    overflow: hidden; /* Taşmaları gizler */
-    z-index: 5; /* Üstte kalması için */
+    top: 50%; 
+    right: 0; 
+    transform: translateY(-50%); 
+    width: 0; 
+    height: 80%; 
+    border-left: 1px solid #ccc; 
+    transition: all 0.5s ease; 
+    opacity: 0; 
+    overflow: hidden; 
+    z-index: 5; 
 }
 
 #pomodoro-p-panel.right-section-visible #right-section {
-    flex: 0.3; /* Sağ panel genişliği */
-    width: 40%; /* Sağ panel genişliği oranı */
-    opacity: 1; /* Görünür hale getir */
-    overflow: visible; /* İçerik taşmalarını göster */
+    flex: 0.3; 
+    width: 40%; 
+    opacity: 1; 
+    overflow: visible; 
 }
 
-/* Ayar Paneli Aç/Kapat Butonu */
 #pomodoro-p-panel #toggle-settings {
     position: absolute;
-    right: -20%; /* Sağdan biraz daha fazla boşluk bırak */
-    top: 50%; /* Dikey olarak ortala */
-    transform: translateY(-50%); /* Tam dikey ortalama için */
+    right: -20%; 
+    top: 50%; 
+    transform: translateY(-50%); 
     padding: 10px;
-    background-color: #4CAF50;
+    background-color: rgba(76, 175, 80, 0.4);
+
     color: white;
     border: none;
     border-radius: 5px;
@@ -680,21 +830,112 @@ p {
     background-color: #45a049;
 }
 
-/* Kapalı Panel İçeriğini Gizle */
-.p-panel:not(.active) .pomodoro-content {
+/* hide content closed panel */
+.p-panel:not(.active) > * {
     opacity: 0;
     visibility: hidden;
-    pointer-events: none; /* Kullanıcı etkileşimlerini devre dışı bırak */
+    pointer-events: none; 
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
 
-/* Aktif Panel İçeriğini Göster */
-.p-panel.active .pomodoro-content {
+/* show content active panel */
+.p-panel.active > * {
     opacity: 1;
     visibility: visible;
-    pointer-events: auto; /* Kullanıcı etkileşimlerini etkinleştir */
+    pointer-events: auto; 
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
+
+/* settings: common features */
+#pomodoro-settings,
+#countdown-settings,
+#stopwatch-settings {
+    display: none;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    width: 100%; 
+    height: 100%; 
+    padding: 20px; 
+    box-sizing: border-box; 
+}
+
+/* Pomodoro settings */
+#pomodoro-settings p,
+#countdown-settings p,
+#stopwatch-settings p {
+    margin-bottom: 10px; 
+    font-size: 16px; 
+    text-align: center; 
+}
+
+#pomodoro-settings input,
+#countdown-settings input {
+    width: 80%; 
+    padding: 10px; 
+    margin-bottom: 15px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    font-size: 14px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+/* Button design*/
+#pomodoro-settings button,
+#countdown-settings button,
+#stopwatch-settings button {
+    width: 50%; 
+    padding: 10px; 
+    margin-top: 20px; 
+    background-color: #137661;
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+#pomodoro-settings button:hover,
+#countdown-settings button:hover,
+#stopwatch-settings button:hover {
+    background-color: #0d574b; 
+}
+
+/* Active settings section */
+#pomodoro-settings.active,
+#countdown-settings.active,
+#stopwatch-settings.active {
+    display: flex; 
+}
+
+
+#apply-settings {
+    margin-top: 20px; 
+    padding: 10px 20px; 
+    background-color: #137661; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px; 
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#apply-settings:hover {
+    background-color: #0d574b; 
+}
+
+/* Align apply button and other content in the right section */
+#right-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    gap: 20px;
+}
+
 
 
 
@@ -705,41 +946,41 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px; /* Buton genişliği */
-    height: 50px; /* Buton yüksekliği */
-    border-radius: 50%; /* Yuvarlak görünüm */
-    border: 2px solid #ff4500; /* Çerçeve rengi */
-    background-color: transparent; /* Arkaplan rengi */
-    font-size: 14px; /* Yazı boyutu */
-    font-weight: bold; /* Kalın yazı */
-    color: #ff4500; /* Yazı rengi */
+    width: 50px; 
+    height: 50px; 
+    border-radius: 50%; 
+    border: 2px solid #ff4500; 
+    background-color: transparent; 
+    font-size: 14px; 
+    font-weight: bold; 
+    color: #ff4500; 
     cursor: pointer;
     text-align: center;
 }
 
 .pomodoro-symbol:hover {
-    background-color: #ff4500; /* Hover efekti için arkaplan */
-    color: #fff; /* Yazı rengi değişimi */
+    background-color: #ff4500;
+    color: #fff; 
 }
 
 .mode-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 60px; /* Buton genişliği */
-    height: 60px; /* Buton yüksekliği */
-    border-radius: 50%; /* Çember görünüm */
-    border: 2px solid #007bff; /* Çerçeve rengi */
-    background-color: #fff; /* Arkaplan rengi */
-    font-size: 18px; /* Yazı veya simge boyutu */
-    color: #007bff; /* Yazı veya simge rengi */
+    width: 60px; 
+    height: 60px; 
+    border-radius: 50%;
+    border: 2px solid #007bff; 
+    background-color: #fff;
+    font-size: 18px; 
+    color: #007bff; 
     cursor: pointer;
-    transition: all 0.3s ease; /* Hover animasyonu */
+    transition: all 0.3s ease; 
 }
 
 .mode-button:hover {
-    background-color: #007bff; /* Hover arkaplan rengi */
-    color: #fff; /* Hover yazı/simge rengi */
+    background-color: #007bff; 
+    color: #fff; 
 }
 
 .mode-button span {
@@ -747,10 +988,8 @@ p {
 }
 
 .mode-button i {
-    font-size: 24px; /* Simge boyutu */
+    font-size: 24px; 
 }
-
-
 
 
 /* --------------------------------------------  */
@@ -764,39 +1003,112 @@ p {
 
 .plant-settings-content {
     display: flex;
-    flex-direction: row; /* Yan yana bölümler */
+    flex-direction: row; 
     width: 100%;
     height: 100%;
 }
 
+/* Plants Panel General Styles */
+#plant-settings-p-panel .p-panel-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    text-align: center;
+    color: gray;
+}
+
+/* Title Style */
+.panel-title {
+    font-size: 50px;
+    font-weight: bold;
+    color: #137661; 
+    margin-bottom: 30px;
+}
+
+/* Plant List Container */
+.plant-list {
+    display: flex;
+    flex-direction: row; 
+    justify-content: center; 
+    align-items: center;
+    gap: 40px; 
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 10px; 
+    background-color: rgba(0, 0, 0, 0.03); 
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Plant List Item */
+.plant-list-item {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    gap: 10px; 
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Plant Image in a Circle */
+.plant-image-circle {
+    width: 90px; 
+    height: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #137661; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.plant-image-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Plant Name */
+.plant-name {
+    font-size: 30px; 
+    font-weight: bold;
+    color: gray;
+    text-align: center;
+}
+
+/* Footer Style */
+.plant-footer {
+    margin-top: 30px;
+    font-size: 40px;
+    color: gray;
+}
+
+
 /* --------------------------------------------  */
-
-
-
-
 
 
 /* ----PANEL 5 : COLLECTION PANEL---- */
 
 .collection-content {
     display: flex;
-    flex-direction: row; /* Yan yana bölümler */
+    flex-direction: row; 
     width: 100%;
     height: 100%;
 }
 
 /* --------------------------------------------  */
-
-
-
-
 
 
 /* ----PANEL 6 : HORIZONS PANEL---- */
 
 .horizons-content {
     display: flex;
-    flex-direction: row; /* Yan yana bölümler */
+    flex-direction: row; 
     width: 100%;
     height: 100%;
 }
@@ -804,15 +1116,11 @@ p {
 /* --------------------------------------------  */
 
 
-
-
-
-
 /* ----PANEL 7 : WORLDS PANEL---- */
 
 .worlds-content {
     display: flex;
-    flex-direction: row; /* Yan yana bölümler */
+    flex-direction: row; 
     width: 100%;
     height: 100%;
 }

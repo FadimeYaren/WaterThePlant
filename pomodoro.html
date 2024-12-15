@@ -7,14 +7,24 @@
     <link rel="icon" type="image/png" sizes="32x32" href="img/general/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="img/general/favicon-16x16.png">
     <title>Pomodoro</title>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+
+
+    <script src="https://www.youtube.com/iframe_api"></script>
 
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/pomodoro.css">
 </head>
 <body>
+
+<!-- STARS-->
 
     <div class="night">
         <div class="shooting_star"></div>
@@ -25,7 +35,8 @@
     </div>
 
 
-    <!-- Navbar -->
+<!-- NAVBAR -->
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <a class="navbar-brand" href="index.html">
             <img id="logo" src="img/general/logoblack.png" alt="Logo" height="50">
@@ -41,19 +52,26 @@
                 <li class="nav-item"><a class="nav-link" href="todos.html">To-Do List</a></li>
             </ul>
             <button class="icon-button" id="colorToggle" aria-label="Change Color" onclick="toggleDarkMode()">🎨</button>
-            <button class="icon-button" id="languageToggle" aria-label="Select Language">🌐</button>
+            
         </div>
     </nav>
 
-    <!-- Panel Container -->
+
+
+
+<!-- Panel Container -->
+
     <div id="panel-container">
 
 
+
+<!-- MUSIC PANEL -->
+
         <div class="p-panel" id="music-p-panel" onclick="activatePanel('music-p-panel')">
+            <span class="panel-label">Music</span>
             <div class="music-content">
 
                 <div class="music-left-section">
-                    <i class="bi bi-volume-up"></i> <!-- Ses Açma İkonu -->
                     <i class="bi bi-music-note-list" id="show-playlist-button"></i> <!-- Playlist Görüntüleme İkonu -->
                     <i class="bi bi-plus-square" id="add-music-button"></i> <!-- Müzik Ekleme İkonu -->
 
@@ -68,19 +86,21 @@
                             </div>
                             <div class="music-rhythm-section">
                                 <!-- Müzik ritim göstergesi (opsiyonel) -->
+                                <div id="youtube-player"></div>
+
                             </div>
                             <div class="music-buttons-section">
                                 <button class="control-btn" id="prev"><i class="fas fa-backward"></i></button>
-                                <button class="control-btn" id="play-pause"><i class="fas fa-play"></i></button>
+                                <button class="control-btn" id="playPauseButton"><i class="fas fa-play"></i></button>
                                 <button class="control-btn" id="next"><i class="fas fa-forward"></i></button>
                             </div>
                             <div class="music-progress-bar-section">
                                 <div class="music-progress-bar-progress-section">
-                                    <span class="time time-start">3:15</span>
+                                    <span class="time time-start">00:00</span>
                                     <div class="progress-bar">
                                         <div class="progress"></div>
                                     </div>
-                                    <span class="time time-end">3:34</span>
+                                    <span class="time time-end">00:00</span>
                                 </div>
                                 <div class="music-progress-bar-sound-section">
                                     <i class="fas fa-volume-down"></i>
@@ -91,18 +111,18 @@
                         </div>
                         <div class="music-right-bot-section">
                             <ul id="playlist">
-                                <!-- JavaScript ile dinamik olarak doldurulacak -->
+                                
                             </ul>
                         </div>
                     </div>
                 
-                    <!-- Müzik ekleme bölümü (Başlangıçta gizli) -->
+                    
                     <div id="add-music-section" style="display: none;">
-                        <!-- Müzik ekleme formu ve diğer elemanlar -->
+                        
                         <form id="addMusicForm">
-                            <input type="text" id="musicName" placeholder="Müzik Adı" required>
-                            <input type="url" id="youtubeLink" placeholder="YouTube Linki" required>
-                            <button type="submit">Ekle</button>
+                            <input type="text" id="musicName" placeholder="Music name" required>
+                            <input type="url" id="youtubeLink" placeholder="YouTube Link" required>
+                            <button type="submit">Add</button>
                         </form>
                     </div>
 
@@ -113,28 +133,30 @@
 
 
 
+
+
+<!-- HISTORY PANEL -->
+
         <div class="p-panel" id="history-p-panel" onclick="activatePanel('history-p-panel')">
+            <span class="panel-label">History</span>
             <div class="history-content">
 
-                <div class="music-left-section">
-                    <i class="bi bi-volume-up"></i> <!-- Ses Açma İkonu -->
-                </div>
-
-                <div class="music-right-section">
-                    <div id="drop-area">
-                        <p>Dosyayı buraya sürükleyin veya tıklayarak seçin</p>
-                        <input type="file" id="file-input" hidden>
-                    </div>
+                <div id="history-container">
                     
-                    <button id="download-button">Download Playlist</button>
 
                 </div>
-
+            
             </div>
         </div>
 
 
+
+
+
+<!-- POMODORO PANEL -->
+
         <div class="p-panel" id="pomodoro-p-panel" onclick="activatePanel('pomodoro-p-panel')">
+            <span class="panel-label">Pomodoro</span>
             <div class="pomodoro-content">
 
                 <div class="pomodoro-mode-section">
@@ -147,13 +169,13 @@
 
                     <div class="pomodoro-mode-countdown-section">
                         <button onclick="selectMode('countdown')">
-                            <i class="fas fa-hourglass-half"></i> <!-- Kum Saati Simgesi -->
+                            <i class="fas fa-hourglass-half"></i> 
                         </button>
                     </div>
 
                     <div class="pomodoro-mode-stopwatch-section">
                         <button onclick="selectMode('stopwatch')">
-                            <i class="fas fa-stopwatch"></i> <!-- Kronometre Simgesi -->
+                            <i class="fas fa-stopwatch"></i> 
                         </button>
                     </div>
 
@@ -169,39 +191,47 @@
                     <div id="circular-timer">
                         <div id="progress-circle"></div>
                         <div id="content">
-                            <img id="plant-stage" src="img/pomodoro/beginning.png" alt="Plant Stage">
+                            <img id="plant-stage" src="img/pomodoro/plants/olive-tree/stage1.png" alt="Plant Stage">
+
                         </div>
                     </div>
                     <div>
                         <p></p>
                         <div id="timer-display">00:00</div>
-                        <button id="start-button" onclick="startTimer()">Başlat</button>
-                        <button id="stop-button" onclick="stopTimer()" style="display: none;">Bitir</button>
+                        <button id="start-button" onclick="startTimer()">Start</button>
+                        <button id="stop-button" onclick="stopTimer()" style="display: none;">Finish</button>
                     </div>
                     
-                    <!-- Aç/Kapat Butonu -->
+                
                     <button id="toggle-settings" onclick="toggleSettings()">></button>
                 </div>
                 
-                <!-- Sağ Bölüm (Başlangıçta Gizli) -->
-                <div id="right-section" class="hidden">
-                    <div><h3>Ayarlar</h3></div>
-                    <p></p>
+                
+                <div id="right-section">
                     
-                    <p>Pomodoro Sayısı:</p>
-                    <label for="pomodoro-count"></label>
-                    <input type="number" id="pomodoro-count" min="1" value="1">
-                    <p></p>
-                    <p>Pomodoro Süresi (dk)</p>
-                    <label for="pomodoro-duration"></label>
-                    <input type="number" id="pomodoro-duration" min="10" value="25">
-                    <p></p>
-                    <p>Mola Süresi (dk)</p>
-                    <label for="break-duration"></label>
-                    <input type="number" id="break-duration" min="1" value="5">
-                    <p></p>
-                    <button id="apply-settings" onclick="applySettings()">Uygula</button>
+                    <div id="pomodoro-settings">
+                        <p>Pomodoro Count:</p>
+                        <input type="number" id="pomodoro-count" min="1" value="4">
+                        <p>Pomodoro Duration(m):</p>
+                        <input type="number" id="pomodoro-duration" min="1" value="25">
+                        <p>Break (m):</p>
+                        <input type="number" id="break-duration" min="1" value="5">
+                    </div>
+                
+                    
+                    <div id="countdown-settings" style="display: none;">
+                        <p>Countdown Duration (m):</p>
+                        <input type="number" id="countdown-duration" min="1" value="30">
+                    </div>
+                
+                    
+                    <div id="stopwatch-settings" style="display: none;">
+                        <p>Just start from 0 and continue.</p>
+                    </div>
+                    
+                    <button id="apply-settings" onclick="applySettings()">Apply</button>
                 </div>
+                
 
                 </div>
                 
@@ -209,34 +239,268 @@
         </div>
 
 
+
+
+<!-- PLANT SETTINGS PANEL-->
+
+
         <div class="p-panel" id="plant-settings-p-panel" onclick="activatePanel('plant-settings-p-panel')">
-            <h2>Plant Settings</h2>
-            <div class="p-panel-content">Plant Settings Panel Content</div>
+            <span class="panel-label">Plants</span>
+            <div class="p-panel-content">
+                <h1 class="panel-title">Plant Species</h1> <!-- Title -->
+                <span class="plant-name">Olive Tree</span>
+
+                <!-- Plant List -->
+                <div class="plant-list">
+                    <!-- Single Plant Item -->
+                    <div class="plant-list-item">
+                        <div class="plant-image-circle">
+                            <img src="img/pomodoro/plants/olive-tree/stage1.png" alt="Olive Tree">
+                        </div>
+                    
+                    </div>
+                    <div class="plant-list-item">
+                        <div class="plant-image-circle">
+                            <img src="img/pomodoro/plants/olive-tree/stage2.png" alt="Olive Tree">
+                        </div>
+                        
+                    </div>
+                    <div class="plant-list-item">
+                        <div class="plant-image-circle">
+                            <img src="img/pomodoro/plants/olive-tree/stage3.png" alt="Olive Tree">
+                        </div>
+                        
+                    </div>
+                    <div class="plant-list-item">
+                        <div class="plant-image-circle">
+                            <img src="img/pomodoro/plants/olive-tree/stage4.png" alt="Olive Tree">
+                        </div>
+                    </div>
+                    <div class="plant-list-item">
+                        <div class="plant-image-circle">
+                            <img src="img/pomodoro/plants/olive-tree/stage5.png" alt="Olive Tree">
+                        </div>
+                    
+                    </div>
+                </div>
+
+
+                <!-- Footer -->
+                <div class="plant-footer">
+                    <p style="font-family: 'Chewy';">New trees on the way...</p>
+                </div>
+            </div>
         </div>
 
+
+
+
+
+<!-- COLLECTION PANEL -->
 
         <div class="p-panel" id="collection-p-panel" onclick="activatePanel('collection-p-panel')">
-            <h2>Collection</h2>
-            <div class="p-panel-content">Collection Panel Content</div>
+            <span class="panel-label">Collection</span>
+            <div class="p-panel-content">
+
+                <div id="total-trees" style="margin: 20px; color: gray;">
+                    <h1>Total Trees: <span id="tree-count" style="color: #137661;">0</span></h1>
+                </div>
+                
+
+            </div>
         </div>
 
+
+
+
+<!-- HORIZONS PANEL -->
 
         <div class="p-panel" id="horizons-p-panel" onclick="activatePanel('horizons-p-panel')">
-            <h2>Horizons</h2>
-            <div class="p-panel-content">Horizons Panel Content</div>
+            <span class="panel-label">Horizons</span>
+            <div class="p-panel-content">
+
+                <h1 style="font-family: 'Chewy'; color: #137661;">COMING SOON</h1>
+
+            </div>
         </div>
 
 
+
+
+<!-- WORLDS PANEL -->
+
         <div class="p-panel" id="worlds-p-panel" onclick="activatePanel('worlds-p-panel')">
-            <h2>Worlds</h2>
-            <div class="p-panel-content">Worlds Panel Content</div>
+            <span class="panel-label">Worlds</span>
+            <div class="p-panel-content">
+
+                <h1 style="font-family: 'Chewy'; color: #137661;">COMING SOON</h1>
+
+            </div>
         </div>
 
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/pomodoro.js"></script>
-    <script src="js/script.js"></script>
+
+
+<!-- SCRIPTS -->    
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        activatePanel('pomodoro-p-panel'); // open omodoro panel
+    });
+</script>
+
+<script>
+    let player; // YouTube Player instance
+    let isPlaying = false;
+    let progressInterval;
+
+    // YouTube API Script Loading
+    if (!window.YT) {
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    } else if (window.YT && YT.Player) {
+        onYouTubeIframeAPIReady(); // Call directly if API already loaded
+    }
+
+    // YouTube IFrame API Ready
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('youtube-player', {
+            height: '360',
+            width: '640',
+            videoId: 'kIBdpFJyFkc', 
+            events: {
+                onReady: onPlayerReady,
+                onStateChange: onPlayerStateChange,
+            },
+        });
+    }
+
+    // Player Ready
+    function onPlayerReady(event) {
+        const playPauseButton = document.getElementById('playPauseButton');
+        playPauseButton.addEventListener('click', () => {
+            if (isPlaying) {
+                player.pauseVideo();
+                playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
+            } else {
+                player.playVideo();
+                playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+            isPlaying = !isPlaying;
+        });
+    }
+
+    // Update Progress Bar
+    function updateProgressBar() {
+    const progressBar = document.querySelector('.progress');
+    const currentTime = player.getCurrentTime();
+    const duration = player.getDuration();
+
+    // error control
+    const validCurrentTime = isNaN(currentTime) ? 0 : currentTime;
+    const validDuration = isNaN(duration) || duration === 0 ? 0 : duration;
+
+    if (progressBar && validDuration > 0) {
+        const progressPercent = (validCurrentTime / validDuration) * 100;
+        progressBar.style.width = `${progressPercent}%`;
+
+        const timeStart = document.querySelector('.time-start');
+        const timeEnd = document.querySelector('.time-end');
+        if (timeStart && timeEnd) {
+            timeStart.textContent = formatVideoTime(validCurrentTime);
+            timeEnd.textContent = formatVideoTime(validDuration);
+        }
+    } else {
+        // Değerler geçersizse varsayılan 00:00 göster
+        document.querySelector('.time-start').textContent = "00:00";
+        document.querySelector('.time-end').textContent = "00:00";
+    }
+}
+
+
+    // Start Updating Progress Bar
+    function startUpdatingProgressBar() {
+        clearInterval(progressInterval);
+        progressInterval = setInterval(updateProgressBar, 500); // Update every 500ms
+    }
+
+    // Stop Updating Progress Bar
+    function stopUpdatingProgressBar() {
+        clearInterval(progressInterval);
+    }
+
+    // Handle Player State Change
+    function onPlayerStateChange(event) {
+        if (event.data === YT.PlayerState.PLAYING) {
+            startUpdatingProgressBar();
+        } else {
+            stopUpdatingProgressBar();
+        }
+    }
+
+    // Format Time (mm:ss)
+    function formatVideoTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    // Allow Click on Progress Bar to Seek Video
+    const progressBarContainer = document.querySelector('.progress-bar');
+    progressBarContainer.addEventListener('click', (event) => {
+        const progressBarWidth = progressBarContainer.offsetWidth;
+        const clickX = event.offsetX;
+        const duration = player.getDuration();
+
+        if (duration > 0) {
+            const newTime = (clickX / progressBarWidth) * duration;
+            player.seekTo(newTime);
+        }
+    });
+
+
+    //VOLUME SLIDER PART
+
+    const volumeSlider = document.querySelector('.volume-slider');
+
+// Update YouTube player volume when volume slider changes
+volumeSlider.addEventListener('input', (event) => {
+    const volume = event.target.value;
+    player.setVolume(volume); 
+});
+
+// YouTube - volume slider sync
+function syncVolumeSlider() {
+    const currentVolume = player.getVolume(); 
+    volumeSlider.value = currentVolume; 
+}
+
+// Update slider to YouTube volume when player is ready
+function onPlayerReady(event) {
+    syncVolumeSlider(); 
+
+    const playPauseButton = document.getElementById('playPauseButton');
+    playPauseButton.addEventListener('click', () => {
+        if (isPlaying) {
+            player.pauseVideo();
+            playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
+        } else {
+            player.playVideo();
+            playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+        }
+        isPlaying = !isPlaying;
+    });
+}
+
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="js/pomodoro.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
